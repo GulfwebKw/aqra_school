@@ -4,18 +4,17 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ApplicationsResource\Pages;
 use App\Models\Application;
-use App\Models\Grade;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\QueryBuilder;
+use Filament\Tables\Filters\QueryBuilder\Constraints\DateConstraint;
+use Filament\Tables\Filters\QueryBuilder\Constraints\TextConstraint;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\Tabs;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\HtmlString;
 
 class ApplicationsResource extends Resource
@@ -34,6 +33,38 @@ class ApplicationsResource extends Resource
     {
         return new HtmlString($record->SFName . '<small> ('.$record->SCivilId.')</small>');
     }
+
+    public static function getGlobalSearchResultUrl(Model $record): ?string
+    {
+
+        $canView = static::canView($record);
+
+        if (static::hasPage('view') && $canView) {
+            return static::getUrl('view', ['record' => $record]);
+        }
+
+        $canEdit = static::canEdit($record);
+
+        if (static::hasPage('edit') && $canEdit) {
+            return static::getUrl('edit', ['record' => $record]);
+        }
+        if ($canEdit) {
+            return static::getUrl(parameters: [
+                'tableAction' => 'edit',
+                'tableActionRecord' => $record,
+            ]);
+        }
+
+        if ($canView) {
+            return static::getUrl(parameters: [
+                'tableAction' => 'view',
+                'tableActionRecord' => $record,
+            ]);
+        }
+
+        return null;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -161,69 +192,156 @@ class ApplicationsResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('SFName')
-                    ->label('Name')
-                    ->searchable(),
+                    ->label('Full Name')
+                    ->searchable()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('SNationlity')
                     ->label('Nationality')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('dob')
+                    ->label('Birthdate')
+                    ->date()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('Sex')
+                    ->label('Sex')
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('SCivilId')
                     ->label('Civil ID')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('SPreviousSchool')
+                    ->label('Previous School Name')
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('SCurricullum')
+                    ->label('Curriculum')
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('SHAddress')
+                    ->label('Home Address')
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('FName')
+                    ->label('Father Full Name')
+                    ->searchable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('FNationlity')
+                    ->label('Father Nationality')
+                    ->searchable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('FCivilId')
+                    ->label('Father Civil ID')
+                    ->searchable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('FMobile')
+                    ->label('Father Mobile')
+                    ->searchable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('FEmail')
+                    ->label('Father Email')
+                    ->searchable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('FOccupation')
+                    ->label('Father Occupation')
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('FName')
+                    ->label('Mother Full Name')
+                    ->searchable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('MNationlity')
+                    ->label('Mother Nationality')
+                    ->searchable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('MCivilId')
+                    ->label('Mother Civil ID')
+                    ->searchable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('MMobile')
+                    ->label('Mother Mobile')
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('MEmail')
+                    ->label('Mother Email')
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('MOccupation')
+                    ->label('Mother Occupation')
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Filled At')
-                    ->date(),
+                    ->label('Filled at')
+                    ->date()
+                    ->toggleable()
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
-                Tables\Filters\Filter::make('grade')
-                    ->form([
-                        Forms\Components\Select::make('grade')
-                            ->options(Grade::withTrashed()->get()->mapWithKeys(fn($item) => [$item->id => $item->title])),
-                    ])->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when(
-                                $data['grade'] ?? null,
-                                fn (Builder $query, $date): Builder => $query->where('Grade_id', $date),
-                            );
-                    })
-                    ->indicateUsing(function (array $data): array {
-                        $indicators = [];
-                        if ($data['grade'] ?? null) {
-                            $indicators['grade'] = 'Application Of ' . optional(Grade::withTrashed()->find($data['grade']))->title ;
-                        }
-                        return $indicators;
-                    }),
-
-                Tables\Filters\Filter::make('created_at')
-                    ->form([
-                        Forms\Components\DatePicker::make('created_from')
-                            ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
-                        Forms\Components\DatePicker::make('created_until')
-                            ->placeholder(fn ($state): string => now()->format('M d, Y')),
+                QueryBuilder::make()
+                    ->constraints([
+                        TextConstraint::make('SFName')
+                            ->label('Full Name'),
+                        TextConstraint::make('SNationlity')
+                            ->label('Nationality'),
+                        DateConstraint::make('dob')
+                            ->label('Birthdate'),
+                        QueryBuilder\Constraints\SelectConstraint::make('Sex')
+                            ->label('Sex')
+                            ->options([
+                                'Male'=>'Male',
+                                'Female'=>'Female',
+                            ]),
+                        TextConstraint::make('SCivilId')
+                            ->label('Civil ID'),
+                        TextConstraint::make('SPreviousSchool')
+                            ->label('Previous School Name'),
+                        TextConstraint::make('SCurricullum')
+                            ->label('Curriculum'),
+                        TextConstraint::make('SHAddress')
+                            ->label('Home Address'),
+                        TextConstraint::make('FName')
+                            ->label('Father Full Name'),
+                        TextConstraint::make('FNationlity')
+                            ->label('Father Nationality'),
+                        TextConstraint::make('FCivilId')
+                            ->label('Father Civil ID'),
+                        TextConstraint::make('FMobile')
+                            ->label('Father Mobile'),
+                        TextConstraint::make('FEmail')
+                            ->label('Father Email'),
+                        TextConstraint::make('FOccupation')
+                            ->label('Father Occupation'),
+                        TextConstraint::make('FBAddress')
+                            ->label('Father Address'),
+                        TextConstraint::make('FName')
+                            ->label('Mother Full Name'),
+                        TextConstraint::make('MNationlity')
+                            ->label('Mother Nationality'),
+                        TextConstraint::make('MCivilId')
+                            ->label('Mother Civil ID'),
+                        TextConstraint::make('MMobile')
+                            ->label('Mother Mobile'),
+                        TextConstraint::make('MEmail')
+                            ->label('Mother Email'),
+                        TextConstraint::make('MOccupation')
+                            ->label('Mother Occupation'),
+                        TextConstraint::make('MBAddress')
+                            ->label('Mother Address'),
+                        DateConstraint::make('created_at')
+                            ->label('Filled at'),
                     ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when(
-                                $data['created_from'] ?? null,
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
-                            )
-                            ->when(
-                                $data['created_until'] ?? null,
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
-                            );
-                    })
-                    ->indicateUsing(function (array $data): array {
-                        $indicators = [];
-                        if ($data['created_from'] ?? null) {
-                            $indicators['created_from'] = 'Application from ' . Carbon::parse($data['created_from'])->toFormattedDateString();
-                        }
-                        if ($data['created_until'] ?? null) {
-                            $indicators['created_until'] = 'Application until ' . Carbon::parse($data['created_until'])->toFormattedDateString();
-                        }
-
-                        return $indicators;
-                    }),
-            ])
+                    ->constraintPickerColumns(2),
+                    Tables\Filters\TrashedFilter::make('deleted_at')
+            ], layout: Tables\Enums\FiltersLayout::AboveContentCollapsible)
             ->actions([
 //                Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
