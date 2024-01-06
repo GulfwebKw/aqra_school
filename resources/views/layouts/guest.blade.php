@@ -13,7 +13,6 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css"
           type="text/css"/>
-    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body onkeydown="return (event.keyCode!=13)"  data-theme="light" >
 
