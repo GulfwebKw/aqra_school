@@ -1,0 +1,453 @@
+html {
+    height: 100%;
+}
+
+body {
+    color: #3c3c3b;
+    background: #f5f5f5;
+    font-family: 'Open Sans',sans-serif;
+    font-size: 13px;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+.sectionpadding {
+    padding: 100px 0
+}
+
+.loginpadding {
+    padding: 80px 0
+}
+
+.reciptpage {
+    background: #fff
+}
+
+.text-red {
+    color: #b90707
+}
+
+.bold {
+    font-weight: 700
+}
+
+.pad300 {
+    padding: 30px 0
+}
+
+.pad200 {
+    padding: 20px 0
+}
+
+.pad20 {
+    padding: 20px
+}
+
+.marbot20 {
+    margin-bottom: 20px
+}
+
+p {
+    font-size: 12px
+}
+
+.loginbox {
+    background: dimgrey;
+    padding: 30px;
+    border-radius: 6px
+}
+.text-light{
+    color:whitesmoke;
+}
+.btn-login {
+    background: #be0101;
+    padding: 10px 50px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 26px;
+    color: #fff
+}
+.btn-g {
+    background: #a50000;
+    padding: 10px 50px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 6px;
+    color: #fff
+}
+.btn-g:hover {
+    background: #b90707;
+    padding: 10px 50px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 6px;
+    color: #fff
+}
+
+.input-rounded {
+    border-radius: 26px
+}
+
+.navbar-brand img {
+    max-width: 320px
+}
+
+.footer {
+    padding: 80px 0 0px;
+}
+
+.footer p {
+    font-size: 80%
+}
+
+.headertop {
+    background: #3c3c3b;
+    padding: 10px 0
+}
+
+.headertop .navbar-brand img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+.navbar {
+    padding: 0
+}
+
+.tabletitle {
+    background: #b90707;
+    margin: 0;
+    padding: 8px 10px;
+    font-size: 18px;
+    color: #fff
+}
+
+thead {
+    background: #eceeef
+}
+
+.btn-mystyle {
+    background: #ffc01a;
+    border: #ffc01a;
+    color: #fff;
+    padding: 10px 40px
+}
+
+.btn-mystyle:active, .btn-mystyle:focus, .btn-mystyle:hover {
+    background: #b90707;
+    border: #b90707
+}
+
+.btn-icon {
+    width: 20px;
+    float: left;
+    margin-right: 6px
+}
+
+.txt-uppercase {
+    text-transform: uppercase
+}
+
+.txt-eng {
+    text-align: left
+}
+
+.txt-rtl {
+    text-align: right
+}
+
+.txt-sm-center {
+    text-align: left
+}
+
+.bg-lb, .txt-eng, .txt-rtl, .txt-sm-center {
+    margin: 10px 0
+}
+
+.bg-lb {
+    background: #e8eff7;
+    padding: 2px 10px
+}
+
+.recipttitle {
+    background: #b90707;
+    color: #fff;
+    padding: 10px;
+    border-radius: 12px;
+    text-align: center
+}
+
+.sectionline {
+    border-width: 2px 0;
+    border-color: #333;
+    border-style: solid;
+    margin: 2px 0;
+    padding: 5px 0
+}
+
+.redbox {
+    background: #b90707;
+    color: #fff;
+    padding: 10px 10px;
+}
+
+@media (max-width:1200px) {
+    .sectionpadding {
+        padding: 100px 0
+    }
+}
+
+@media (max-width:992px) {
+    .sectionpadding {
+        padding: 100px 0
+    }
+}
+
+@media (max-width:768px) {
+    .txt-sm-center {
+        text-align: center
+    }
+
+    .bg-lb, .txt-eng, .txt-rtl, .txt-sm-center {
+        margin: 5px 0
+    }
+
+    .sectionpadding {
+        padding: 100px 0
+    }
+}
+
+@media (max-width:576px) {
+    .pad300 {
+        padding: 0
+    }
+
+    .sectionpadding {
+        padding: 100px 0
+    }
+}
+
+.social_image {
+    padding: 5px;
+    height: 50px;
+    width: 50px;
+}
+
+.float-left {
+    float: left !important
+}
+
+.float-right {
+    float: right !important
+}
+
+@media print {
+    .hidden-print {
+        display: none !important
+    }
+}
+
+@media (max-width: 767px) {
+    .hidden-xs {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .hidden-sm {
+        display: none !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .hidden-md {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .hidden-lg {
+        display: none !important;
+    }
+}
+
+
+.logo{
+    max-width:100px;
+    width:auto;
+    height:auto;
+
+}
+
+/**
+ * Tooltip Styles
+ */
+
+/*  Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+    position: absolute;
+    top: 200%;
+    left: 50%;
+    margin-top: 5px;
+    margin-left: -80px;
+    padding: 7px;
+    width: 200px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #000;
+    background-color: hsla(0, 0%, 20%, 0.9);
+    color: #fff;
+    content: attr(data-tooltip);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+    position: absolute;
+    top: 200%;
+    left: 50%;
+    margin-left: -5px;
+    width: 0;
+    border-top: 5px solid #000;
+    border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+    visibility: visible;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+
+input[readonly] {
+    background: #CCC;
+    color: #333;
+}
+
+/*.table-student-fees {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 5px;
+}
+
+    .table-student-fees thead th {
+        background-color: #b90707;
+        color: #ffffff;
+        line-height: 30px;
+    }
+
+    .table-student-fees tbody td {
+        background-color: #E8EFF7;
+    }
+
+    .table-student-fees .column > div {
+        padding: 0px;
+        background-color: #3D6994;
+    }*/
+
+.auto-style1 {
+    height: 23px;
+}
+
+#loading {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.7);
+    z-index: 9999;
+    display: none;
+}
+
+#loading::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 48%;
+    top: 40%;
+    width: 40px;
+    height: 40px;
+    border-style: solid;
+    border-color: #b90707;
+    border-top-color: transparent;
+    border-width: 4px;
+    border-radius: 50%;
+    -webkit-animation: spin .8s linear infinite;
+    animation: spin .8s linear infinite;
+}
+
+.blink_me {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.marbot20 {
+    margin-bottom: 5px;
+}
+
+
+.text-red {
+    color: #BC9660
+}
+
+.text-title {
+    background-color: #BC9660;
+    color: white;
+    padding: 6px;
+    margin-top: 10px;
+    border-bottom: 4px solid black;
+}
+
+.btn-g {
+    background-color: #BC9660
+}
+
+
+.banner {
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+
+.banner_content {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}

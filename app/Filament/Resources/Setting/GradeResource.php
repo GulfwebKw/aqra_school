@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Setting;
 
 use App\Filament\Resources\Setting;
-use App\Models\User;
+use App\Models\Grade;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,45 +13,34 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 
-class AdminResource extends Resource
+class GradeResource extends Resource
 {
-    protected static ?string $model = User::class;
-
+    protected static ?string $model = Grade::class;
     protected static ?string $navigationGroup = 'Setting';
-    protected static ?string $navigationLabel = "Admins";
-    protected static ?string $label = "Admin";
 
-    protected static ?string $navigationIcon = 'heroicon-m-user-group';
-
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     public static function getGloballySearchableAttributes(): array
     {
-        return ['name', 'email'];
+        return ['title'];
     }
 
     public static function getGlobalSearchResultTitle(Model $record): string | Htmlable
     {
-        return new HtmlString($record->name . '<small> ('.$record->email.')</small>');
+        return $record->title;
     }
-
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('email')
+                Forms\Components\TextInput::make('price')
                     ->required()
-                    ->type('email')
+                    ->rules(['numeric'])
                     ->maxLength(255),
-                Forms\Components\TextInput::make('password')
-                    ->nullable()
-                    ->confirmed()
-                    ->type('password'),
-                Forms\Components\TextInput::make('password_confirmation')
-                    ->nullable()
-                    ->type('password'),
-
+                Forms\Components\Toggle::make('is_active')
+                    ->nullable(),
             ]);
     }
 
@@ -59,10 +48,11 @@ class AdminResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('price')
+                    ->formatStateUsing(fn (string $state): string => number_format($state,2).' KD'),
+                Tables\Columns\ToggleColumn::make('is_active'),
             ])
             ->filters([
                 //
@@ -88,9 +78,9 @@ class AdminResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Setting\UserResource\Pages\ListAdmins::route('/'),
-            'create' => Setting\UserResource\Pages\CreateAdmin::route('/create'),
-            'edit' => Setting\UserResource\Pages\EditAdmin::route('/{record}/edit'),
+            'index' => Setting\GradeResource\Pages\ListGrades::route('/'),
+            'create' => Setting\GradeResource\Pages\CreateGrade::route('/create'),
+            'edit' => Setting\GradeResource\Pages\EditGrade::route('/{record}/edit'),
         ];
     }
 }
