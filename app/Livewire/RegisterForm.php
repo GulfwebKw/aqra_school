@@ -2,8 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Models\Application;
 use App\Models\Grade;
 use HackerESQ\Settings\Facades\Settings;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Livewire\Component;
 
@@ -18,24 +20,24 @@ class RegisterForm extends Component
         'form.dob-day' => ['required' , 'string'],
         'form.dob-month' => ['required' , 'string'],
         'form.dob-year' => ['required' , 'string'],
-        'form.Sex' => ['required' , 'string'],
+        'form.Sex' => ['required' , 'string' ,'in:Male,Female'],
         'form.SCivilId' => ['required' , 'string'],
         'form.SPreviousSchool' => ['required' , 'string'],
         'form.SCurricullum' => ['required' , 'string'],
-        'form.Grade' => ['required' , 'string' , 'exist:grades,id'],
+        'form.Grade' => ['required' , 'exists:grades,id'],
         'form.SHAddress' => ['required' , 'string'],
         'form.FName' => ['required' , 'string'],
         'form.FNationlity' => ['required' , 'string'],
         'form.FCivilId' => ['required' , 'string'],
         'form.FMobile' => ['required' , 'string'],
-        'form.FEmail' => ['required' , 'string'],
+        'form.FEmail' => ['required' , 'email'],
         'form.FOccupation' => ['required' , 'string'],
         'form.FBAddress' => ['required' , 'string'],
         'form.MName' => ['required' , 'string'],
         'form.MNationlity' => ['required' , 'string'],
         'form.MCivilId' => ['required' , 'string'],
         'form.MMobile' => ['required' , 'string'],
-        'form.MEmail' => ['required' , 'string'],
+        'form.MEmail' => ['required' , 'email'],
         'form.MOccupation' => ['required' , 'string'],
         'form.MBAddress' => ['required' , 'string'],
         'form.HowDidYouKnow' => ['required' , 'string'],
@@ -74,12 +76,18 @@ class RegisterForm extends Component
     public function save()
     {
         $this->validate();
-
+        $this->form['dob'] = Carbon::createFromDate($this->form['dob-year'],$this->form['dob-month'],$this->form['dob-day']);
+        $this->form['Grade_id'] = $this->form['Grade'];
+        $application = new Application();
+        $application->fill($this->form);
+        $application->save();
     }
 
     public function mount()
     {
         $this->grades = Grade::query()->where('is_active' , 1)->orderBy('price')->get();
+        $this->form['Sex'] = 'Male';
+        $this->form['Grade'] = optional(optional($this->grades)[0])->id;
     }
     public function render()
     {
