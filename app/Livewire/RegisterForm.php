@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Jobs\sendRegisterEmailJob;
 use App\Models\Application;
 use App\Models\Grade;
 use HackerESQ\Settings\Facades\Settings;
@@ -96,6 +97,7 @@ class RegisterForm extends Component
             $application->paid = true;
             $application->paid_at = now();
             $application->save();
+            dispatch(new sendRegisterEmailJob($application->id));
             return redirect()->route('application.show' , ['uuid' => $application->uuid ]);
         }
         try {

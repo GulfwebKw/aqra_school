@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Jobs\sendRegisterEmailJob;
 use App\Models\Application;
 use HackerESQ\Settings\Facades\Settings;
 use Illuminate\Routing\Controller as BaseController;
@@ -42,6 +43,7 @@ class Controller extends BaseController
             $application->paid_at = now();
             $application->paid = true;
             $application->save();
+            dispatch(new sendRegisterEmailJob($application->id));
         }
         return redirect()->route('application.show' , ['uuid' => $application->uuid , 'msg' => $msg ]);
 
@@ -63,6 +65,7 @@ class Controller extends BaseController
             $application->paid = true;
             $application->paid_at = now();
             $application->save();
+            dispatch(new sendRegisterEmailJob($application->id));
             return redirect()->route('application.show' , ['uuid' => $application->uuid ]);
         }
         try {
