@@ -432,7 +432,7 @@ class ApplicationsResource extends Resource
                 ]),
             ])
             ->bulkActions([
-            ]);
+            ])->defaultSort('id', 'desc');
     }
 
     public static function getRelations(): array
