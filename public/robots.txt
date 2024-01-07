@@ -1,2 +1,10 @@
 User-agent: *
-Disallow:
+Disallow: /
+Disallow: /storage/
+disallow: /admin/
+disallow: /application/
+disallow: /callback/
+Disallow: /storage/*
+Disallow: /admin/*
+Disallow: /application/*
+Disallow: /callback/*
