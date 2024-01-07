@@ -9,6 +9,8 @@ use Filament\Forms\Contracts\HasForms;
 use \HackerESQ\Settings\Facades\Settings as config;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Illuminate\Support\Facades\File;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class Settings extends Page implements HasForms
 {
@@ -22,6 +24,7 @@ class Settings extends Page implements HasForms
 
     public $site_title ;
     public $logo ;
+    public $logo_dark ;
     public $email_from ;
     public $email_to ;
     public $MYFATOORAH_API_KEY ;
@@ -32,13 +35,15 @@ class Settings extends Page implements HasForms
         'email_from' => ['required' , 'email'],
         'email_to' => ['required' , 'email'],
         'logo' => ['nullable' , 'image'],
+        'logo_dark' => ['nullable' , 'image'],
     ];
     protected $validationAttributes = [
         'site_title' => 'Site Title',
         'MYFATOORAH_API_KEY' => 'Myfatoorah API Key',
         'email_from' => 'Email From',
         'email_to' => 'Notification Email address',
-        'logo' => 'Logo',
+        'logo' => 'Logo Light',
+        'logo_dark' => 'Logo Dark',
     ];
 
 
@@ -64,9 +69,13 @@ class Settings extends Page implements HasForms
                         ->rule(['email'])
                         ->required(),
                     TextInput::make('logo')
-                        ->label('Logo')
+                        ->label('Logo Light')
                         ->type('file')
-                        ->rule(['image']),
+                        ->rule(['nullable' , 'image']),
+                    TextInput::make('logo_dark')
+                        ->label('Logo Dark')
+                        ->type('file')
+                        ->rule(['nullable' , 'image']),
                 ])
                 ->columns(3),
             Section::make()
@@ -85,7 +94,24 @@ class Settings extends Page implements HasForms
     {
         $this->validate();
         $data = $this->form->getState() ;
-        config::force()->set(collect($data)->except('logo')->toArray());
+
+        if ( $data['logo'] instanceof TemporaryUploadedFile) {
+            $carbon = now();
+            $logoPath = "public/". $carbon->year .'/'.$carbon->month.'/'.$carbon->day.'/'.'logo.' . $data['logo']->guessExtension();
+            $data['logo']->storeAs($logoPath);
+            $last_logo_image = config::get('logo');
+            config::force()->set(['logo' => $logoPath]);
+            File::delete($last_logo_image);
+        }
+        if ( $data['logo_dark'] instanceof TemporaryUploadedFile ) {
+            $carbon = now();
+            $logoPath = "public/". $carbon->year .'/'.$carbon->month.'/'.$carbon->day.'/'.'logo_dark.' . $data['logo_dark']->guessExtension();
+            $data['logo_dark']->storeAs($logoPath);
+            $last_logo_image = config::get('logo_dark');
+            config::force()->set(['logo_dark' => $logoPath]);
+            File::delete($last_logo_image);
+        }
+        config::force()->set(collect($data)->except(['logo' , 'logo_dark'])->toArray());
         Notification::make()
             ->title('Settings saved successfully!')
             ->success()

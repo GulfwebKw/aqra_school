@@ -63,8 +63,6 @@
             </strong><br>
             {{ $application->grade->title }}
         </td>
-        <td>
-        </td>
     </tr>
     <tr>
         <td colspan="4">

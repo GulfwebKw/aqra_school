@@ -18,9 +18,11 @@
 
 
 <div class="bg-dark banner" style="height: 100px; vertical-align: central; text-align: center !important;">
-    <a class="navbar-brand banner_content" href="#">
-        <img src="images/logo.png" class="logo img-fluid" title="{{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }}"
+    @if(\HackerESQ\Settings\Facades\Settings::get('logo' , false))
+    <a class="navbar-brand banner_content" href="/">
+        <img src="{{ asset(Str::replaceFirst('public/' , 'storage/' , \HackerESQ\Settings\Facades\Settings::get('logo'))) }}" class="logo img-fluid" title="{{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }}"
              alt="{{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }} Logo"/></a>
+    @endif
 </div>
 
 
