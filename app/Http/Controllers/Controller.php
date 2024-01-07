@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\sendRegisterEmailJob;
 use App\Models\Application;
+use Barryvdh\DomPDF\Facade\Pdf;
 use HackerESQ\Settings\Facades\Settings;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Log;
@@ -54,6 +55,7 @@ class Controller extends BaseController
         $application = Application::query()->where('uuid' , $uuid)->firstOrFail();
         return view('application' , compact('application' ));
     }
+
     public function applicationPay($uuid){
         /** @var Application $application */
         $application = Application::query()->where('paid' , 0)->where('uuid' , $uuid)->firstOrFail();
@@ -95,4 +97,10 @@ class Controller extends BaseController
     }
 
 
+    public function applicationExport($uuid){
+        /** @var Application $application */
+        $application = Application::query()->where('uuid' , $uuid)->firstOrFail();
+        $pdf = Pdf::loadView('pdf', compact('application'))->setPaper('a4');
+        return $pdf->download('application_form_'.$application->id.'.pdf');
+    }
 }

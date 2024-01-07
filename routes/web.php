@@ -17,3 +17,4 @@ Route::get('/', \App\Livewire\RegisterForm::class);
 Route::get('/callback', [\App\Http\Controllers\Controller::class,'callback'])->name('callback');
 Route::get('/application/{uuid}', [\App\Http\Controllers\Controller::class,'application'])->name('application.show');
 Route::get('/application/{uuid}/pay', [\App\Http\Controllers\Controller::class,'applicationPay'])->name('application.pay');
+Route::get('/application/{uuid}/export/pdf', [\App\Http\Controllers\Controller::class,'applicationExport'])->name('application.export');
