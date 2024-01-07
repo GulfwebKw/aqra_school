@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property string $SFName
+ * @property string $SNationlity
  * @property Carbon $dob
  * @property string $Sex
  * @property string $SCivilId
@@ -33,6 +34,12 @@ use Illuminate\Support\Carbon;
  * @property string $MOccupation
  * @property string $MBAddress
  * @property string $HowDidYouKnow
+ * @property string $invoiceId
+ * @property string $uuid
+ * @property float $price
+ * @property string $invoiceReference
+ * @property Carbon $paid_at
+ * @property boolean $paid
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
@@ -66,15 +73,24 @@ class Application extends Model
         'MOccupation',
         'MBAddress',
         'HowDidYouKnow',
+        'price',
+        'paid',
+        'paid_at',
+        'invoiceReference',
+        'invoiceId',
+        'uuid',
     ];
 
     protected $casts = [
         'Grade_id' => 'int' ,
-        'dob' => 'date'
+        'price' => 'float' ,
+        'dob' => 'date',
+        'paid' => 'boolean',
+        'paid_at' => 'datetime',
     ];
 
     public function grade()
     {
-        return $this->belongsTo(Grade::class , 'Grade_id');
+        return $this->belongsTo(Grade::class , 'Grade_id')->withTrashed();
     }
 }

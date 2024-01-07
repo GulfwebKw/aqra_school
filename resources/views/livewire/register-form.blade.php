@@ -446,7 +446,7 @@
 
     <div class="row">
         <div class="col-md-12 form-group marbot20">
-            <label for="txtHowDidYouKnow">How did you know about Iqra'a American School ? كيف عرفت عن مدرسة اقرأ
+            <label for="txtHowDidYouKnow">How did you know about {{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }} ? كيف عرفت عن مدرسة اقرأ
                 الأمريكية؟</label>
             <input wire:model.lazy="form.HowDidYouKnow" type="text" maxlength="150" class="form-control @error('form.HowDidYouKnow') is-invalid @enderror"
                    onkeypress="return isNumericKey(event)"/>
@@ -468,6 +468,6 @@
     </div>
     <div class="row" style="padding: 10px;"></div>
     <div class="row" style="padding: 10px;">
-        <span style="color:#EC624B;font-weight:bold;"></span>
+        <span style="color:#EC624B;font-weight:bold;">{{ $errorMessage }}</span>
     </div>
 </div>

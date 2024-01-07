@@ -15,7 +15,9 @@
         "hackeresq/laravel-settings": "^3.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "myfatoorah/laravel-package": "2.1",
+        "myfatoorah/library": "2.1.*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>
-        Iqra'a American School.::. APPLCIATION
+        {{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }}.::. APPLCIATION
     </title>
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
@@ -19,8 +19,8 @@
 
 <div class="bg-dark banner" style="height: 100px; vertical-align: central; text-align: center !important;">
     <a class="navbar-brand banner_content" href="#">
-        <img src="images/logo.png" class="logo img-fluid" title="Iqra'a American School"
-             alt="Iqra'a American School Logo"/></a>
+        <img src="images/logo.png" class="logo img-fluid" title="{{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }}"
+             alt="{{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }} Logo"/></a>
 </div>
 
 
@@ -36,7 +36,7 @@
 
 <footer class="py-3 bg-dark float-bottom">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyrights © 2020 All Rights Reserved by Iqra'a American School </p>
+        <p class="m-0 text-center text-white">Copyrights © 2020 All Rights Reserved by {{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }} </p>
     </div>
     <!-- /.container -->
 </footer>

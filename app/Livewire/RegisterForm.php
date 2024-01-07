@@ -7,12 +7,16 @@ use App\Models\Grade;
 use HackerESQ\Settings\Facades\Settings;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Livewire\Component;
+use MyFatoorah\Library\PaymentMyfatoorahApiV2;
 
 class RegisterForm extends Component
 {
 
     public $form = [];
+    public $errorMessage = null;
     public $grades = [];
     public $rules = [
         'form.SFName' => ['required' , 'string'],
@@ -76,11 +80,47 @@ class RegisterForm extends Component
     public function save()
     {
         $this->validate();
+        /** @var Grade $grade */
+        $grade = Grade::query()->where('is_active' , 1)->findOrFail($this->form['Grade']);
         $this->form['dob'] = Carbon::createFromDate($this->form['dob-year'],$this->form['dob-month'],$this->form['dob-day']);
         $this->form['Grade_id'] = $this->form['Grade'];
         $application = new Application();
         $application->fill($this->form);
+        do {
+            $uuid = Str::uuid();
+        } while ( Application::query()->where('uuid' , $uuid)->exists());
+        $application->uuid = $uuid;
+        $application->price = $grade->price;
         $application->save();
+        if ( $grade->price <= 0 ){
+            $application->paid = true;
+            $application->paid_at = now();
+            $application->save();
+            return redirect()->route('application.show' , ['uuid' => $application->uuid ]);
+        }
+        try {
+            $payLoadData = [
+                'CustomerName'       => $this->form['SFName'],
+                'InvoiceValue'       => $grade->price,
+                'DisplayCurrencyIso' => 'KWD',
+//                'CustomerEmail'      => $this->form['FEmail'],
+                'CallBackUrl'        => route('callback'),
+                'ErrorUrl'           => route('callback'),
+                'MobileCountryCode'  => '+965',
+//                'CustomerMobile'     => $this->form['FMobile'],
+                'Language'           => 'en',
+                'CustomerReference'  => $application->id,
+                'SourceInfo'         => $grade->title,
+            ];
+            $mfObj = new PaymentMyfatoorahApiV2(config('myfatoorah.api_key'), config('myfatoorah.country_iso'), config('myfatoorah.test_mode'));
+            $data            = $mfObj->getInvoiceURL($payLoadData, 1);
+            $application->invoiceId = $data['invoiceId'];
+            $application->save();
+            return redirect()->to($data['invoiceURL']);
+        } catch (\Exception $e) {
+            Log::info($e->getMessage());
+            $this->errorMessage='Can not connect to payment gateway!';
+        }
     }
 
     public function mount()
