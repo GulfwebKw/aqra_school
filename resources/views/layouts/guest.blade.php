@@ -36,7 +36,7 @@
 
 <footer class="py-3 bg-dark float-bottom">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyrights © 2020 All Rights Reserved by {{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }} </p>
+        <p class="m-0 text-center text-white">Copyrights © {{ now()->year }} All Rights Reserved by {{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }} </p>
     </div>
     <!-- /.container -->
 </footer>

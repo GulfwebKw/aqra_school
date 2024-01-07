@@ -112,14 +112,14 @@ class RegisterForm extends Component
                 'CustomerReference'  => $application->id,
                 'SourceInfo'         => $grade->title,
             ];
-            $mfObj = new PaymentMyfatoorahApiV2(config('myfatoorah.api_key'), config('myfatoorah.country_iso'), config('myfatoorah.test_mode'));
-            $data            = $mfObj->getInvoiceURL($payLoadData, 1);
+            $mfObj = new PaymentMyfatoorahApiV2(Settings::get('MYFATOORAH_API_KEY'), config('myfatoorah.country_iso'), config('myfatoorah.test_mode'));
+            $data            = $mfObj->getInvoiceURL($payLoadData, 0);
             $application->invoiceId = $data['invoiceId'];
             $application->save();
             return redirect()->to($data['invoiceURL']);
         } catch (\Exception $e) {
             Log::info($e->getMessage());
-            $this->errorMessage='Can not connect to payment gateway!';
+            $this->errorMessage='There was a problem connecting to the payment gateway! Please try again.';
         }
     }
 

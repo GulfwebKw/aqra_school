@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title'),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------

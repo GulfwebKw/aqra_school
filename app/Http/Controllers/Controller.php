@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Application;
+use HackerESQ\Settings\Facades\Settings;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Log;
 use MyFatoorah\Library\PaymentMyfatoorahApiV2;
 
 class Controller extends BaseController
 {
     public function callback() {
+        /** @var Application $application */
         $status = false;
         $invoiceReference = null;
         $application = null;
         try {
-            $mfObj = new PaymentMyfatoorahApiV2(config('myfatoorah.api_key'), config('myfatoorah.country_iso'), config('myfatoorah.test_mode'));
+            $mfObj = new PaymentMyfatoorahApiV2(Settings::get('MYFATOORAH_API_KEY'), config('myfatoorah.country_iso'), config('myfatoorah.test_mode'));
             $data = $mfObj->getPaymentStatus(request('paymentId'), 'PaymentId');
 
             if ($data->InvoiceStatus == 'Paid') {
@@ -46,8 +48,47 @@ class Controller extends BaseController
     }
 
     public function application($uuid){
+        /** @var Application $application */
         $application = Application::query()->where('uuid' , $uuid)->firstOrFail();
         return view('application' , compact('application' ));
+    }
+    public function applicationPay($uuid){
+        /** @var Application $application */
+        $application = Application::query()->where('paid' , 0)->where('uuid' , $uuid)->firstOrFail();
+
+        if (!$application->grade->is_active)
+            abort(404);
+
+        if ( $application->grade->price <= 0 ){
+            $application->paid = true;
+            $application->paid_at = now();
+            $application->save();
+            return redirect()->route('application.show' , ['uuid' => $application->uuid ]);
+        }
+        try {
+            $payLoadData = [
+                'CustomerName'       => $application->SFName,
+                'InvoiceValue'       => $application->grade->price,
+                'DisplayCurrencyIso' => 'KWD',
+//                'CustomerEmail'      => $application->FEmail,
+                'CallBackUrl'        => route('callback'),
+                'ErrorUrl'           => route('callback'),
+                'MobileCountryCode'  => '+965',
+//                'CustomerMobile'     => $this->form['FMobile'],
+                'Language'           => 'en',
+                'CustomerReference'  => $application->id,
+                'SourceInfo'         => $application->grade->title,
+            ];
+            $mfObj = new PaymentMyfatoorahApiV2(Settings::get('MYFATOORAH_API_KEY'), config('myfatoorah.country_iso'), config('myfatoorah.test_mode'));
+            $data            = $mfObj->getInvoiceURL($payLoadData, 0);
+            $application->invoiceId = $data['invoiceId'];
+            $application->price = $payLoadData['InvoiceValue'];
+            $application->save();
+            return redirect()->to($data['invoiceURL']);
+        } catch (\Exception $e) {
+            Log::info($e->getMessage());
+            return redirect()->route('application.show' , ['uuid' => $application->uuid , 'msg' => 'There was a problem connecting to the payment gateway! Please try again.' ]);
+        }
     }
 
 

@@ -57,7 +57,7 @@
             </strong><br>
             {{ $application->SCurricullum }}
         </td>
-        <td>
+        <td colspan="2">
             <strong>
                 Grade Applied For:
             </strong><br>
