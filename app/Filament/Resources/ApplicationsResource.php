@@ -16,6 +16,7 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 
 class ApplicationsResource extends Resource
 {
@@ -26,7 +27,7 @@ class ApplicationsResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['SFName', 'SCivilId'];
+        return ['SFName', 'SCivilId' ,'invoiceReference','invoiceId'];
     }
 
     public static function getGlobalSearchResultTitle(Model $record): string | Htmlable
@@ -184,6 +185,48 @@ class ApplicationsResource extends Resource
                             ->required()
                             ->maxLength(255),
                     ]),
+                Section::make('Invoice Details')
+                    ->columns([
+                        'sm' => 1,
+                        'xl' => 2,
+                        '2xl' => 4,
+                    ])
+                    ->schema([
+                        Forms\Components\Select::make('paid')
+                            ->label('Is Paid')
+                            ->options([
+                                '0' => 'Not Pay',
+                                '1' => 'Paid',
+                            ])
+                            ->required(),
+                        Forms\Components\TextInput::make('price')
+                            ->label('Price')
+                            ->required()
+                            ->type('number')
+                            ->maxLength(255),
+                        Forms\Components\DateTimePicker::make('paid_at')
+                            ->label('Paid at'),
+                        Forms\Components\TextInput::make('invoiceReference')
+                            ->label('Invoice Reference')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('invoiceId')
+                            ->label('Invoice Id')
+                            ->maxLength(255),
+                    ]),
+                Section::make('Other Information')
+                    ->columns([
+                        'sm' => 1,
+                        'xl' => 2,
+                        '2xl' => 4,
+                    ])
+                    ->schema([
+                        Forms\Components\DateTimePicker::make('created_at')
+                            ->label('Filled at')
+                            ->disabled(),
+                        Forms\Components\TextInput::make('HowDidYouKnow')
+                            ->label('How to get to know us')
+                            ->maxLength(255),
+                    ]),
             ]);
     }
 
@@ -283,7 +326,20 @@ class ApplicationsResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Filled at')
                     ->date()
+                    ->toggleable(),
+                Tables\Columns\BooleanColumn::make('paid')
+                    ->label('Is Paid')
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('invoiceReference')
+                    ->label('inv.Reference')
+                    ->searchable()
                     ->toggleable()
+                    ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('invoiceId')
+                    ->label('inv.Id')
+                    ->searchable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
             ])
             ->filters([
                 QueryBuilder::make()
@@ -338,16 +394,42 @@ class ApplicationsResource extends Resource
                             ->label('Mother Address'),
                         DateConstraint::make('created_at')
                             ->label('Filled at'),
+                        DateConstraint::make('paid_at')
+                            ->label('Paid at'),
+                        QueryBuilder\Constraints\SelectConstraint::make('paid')
+                            ->label('Is paid')
+                            ->options([
+                                '0'=>'Not Pay',
+                                '1'=>'Paid',
+                            ]),
+                        TextConstraint::make('invoiceReference')
+                            ->label('Invoice Reference'),
+                        TextConstraint::make('invoiceId')
+                            ->label('Invoice ID'),
                     ])
                     ->constraintPickerColumns(2),
                     Tables\Filters\TrashedFilter::make('deleted_at')
             ], layout: Tables\Enums\FiltersLayout::AboveContentCollapsible)
             ->actions([
-//                Tables\Actions\ActionGroup::make([
+                Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
+                    Tables\Actions\Action::make('visit')
+                        ->label('Guest View')
+                        ->icon('heroicon-m-arrow-top-right-on-square')
+                        ->openUrlInNewTab()
+                        ->url(function(Application $application) {
+                            return  route('application.show', ['uuid' => $application->uuid]);
+                        }),
+                    Tables\Actions\Action::make('download')
+                        ->label('PDF Export')
+                        ->icon('heroicon-o-document-check')
+                        ->openUrlInNewTab()
+                        ->url(function(Application $application) {
+                            return  route('application.export', ['uuid' => $application->uuid]);
+                        })
 //                    Tables\Actions\EditAction::make(),
 //                    Tables\Actions\DeleteAction::make(),
-//                ]),
+                ]),
             ])
             ->bulkActions([
             ]);
