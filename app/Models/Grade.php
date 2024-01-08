@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
  * @property int $id
  * @property string $title
  * @property float $price
+ * @property int $ordering
  * @property bool $is_active
  * @property Collection<Application> $applications
  * @property Carbon $created_at
@@ -24,11 +25,13 @@ class Grade extends Model
     protected $fillable = [
         'title' ,
         'price' ,
+        'ordering',
         'is_active'
     ];
 
     protected $casts = [
         'price' => 'float' ,
+        'ordering' => 'int' ,
         'is_active' => 'boolean'
     ];
 

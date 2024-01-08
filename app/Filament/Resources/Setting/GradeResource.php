@@ -65,7 +65,10 @@ class GradeResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ])->defaultSort('id', 'desc');
+            ])
+            ->defaultSort('ordering')
+            ->reorderable('ordering')
+            ->paginatedWhileReordering();
     }
 
     public static function getRelations(): array
