@@ -4,7 +4,7 @@
     <div class="alert alert-warning">
         please fill out the form in English/ يرجى تعبئة البيانات باللغة الإنجليزية
     </div>
-    <h2 class="h4 text-red marbot20">Student Information / معلومات الطالب</h2>
+    <h2 class="h4 text-red marbot20 mt-5">Student Information / معلومات الطالب</h2>
     <div class="form-group marbot20">
         <label for="txtSFName">Student Full Name / الاسم الكامل للطالب</label>
         <input wire:model.lazy="form.SFName" type="text" maxlength="100" class="form-control @error('form.SFName') is-invalid @enderror"
@@ -281,7 +281,7 @@
         @enderror
     </div>
 
-    <h2 class="h4 text-red marbot20">Father Information / معلومات الأب</h2>
+    <h2 class="h4 text-red marbot20 mt-5">Father Information / معلومات الأب</h2>
     <div class="form-group marbot20">
         <label for="txtFName">Father Full Name / الاسم الكامل للأب</label>
         <input wire:model.lazy="form.FName" type="text" maxlength="100" class="form-control @error('form.FName') is-invalid @enderror"
@@ -364,7 +364,7 @@
 
     </div>
 
-    <h2 class="h4 text-red marbot20">Mother Information / معلومات الأم</h2>
+    <h2 class="h4 text-red marbot20 mt-5">Mother Information / معلومات الأم</h2>
     <div class="form-group marbot20">
         <label for="txtMName">Mother Full Name / الاسم الكامل للأم</label>
         <input wire:model.lazy="form.MName" type="text" maxlength="100" class="form-control @error('form.MName') is-invalid @enderror"
