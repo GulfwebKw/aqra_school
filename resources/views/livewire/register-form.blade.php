@@ -260,7 +260,7 @@
             <select wire:model.lazy="form.Grade" class="form-control @error('form.Grade') is-invalid @enderror">
                 <option value="">Please choose</option>
                 @foreach($grades as $grade)
-                    <option value="{{ $grade->id }}">{{ $grade->title }}: {{ number_format($grade->price) }} KD</option>
+                    <option value="{{ $grade->id }}">{{ $grade->title }}</option>
                 @endforeach
             </select>
             @error('form.Grade')
