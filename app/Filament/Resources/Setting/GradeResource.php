@@ -67,8 +67,7 @@ class GradeResource extends Resource
                 ]),
             ])
             ->defaultSort('ordering')
-            ->reorderable('ordering')
-            ->paginatedWhileReordering();
+            ->reorderable('ordering');
     }
 
     public static function getRelations(): array
