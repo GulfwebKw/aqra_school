@@ -128,8 +128,8 @@ class RegisterForm extends Component
     public function mount()
     {
         $this->grades = Grade::query()->where('is_active' , 1)->orderBy('price')->get();
-        $this->form['Sex'] = 'Male';
-        $this->form['Grade'] = optional(optional($this->grades)[0])->id;
+        $this->form['Sex'] = '';
+        $this->form['Grade'] = '';
     }
     public function render()
     {

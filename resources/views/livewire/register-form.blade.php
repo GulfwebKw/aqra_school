@@ -209,6 +209,7 @@
         <div class="col-md-3 form-group marbot20">
             <label for="txtSex">Sex / الجنس</label>
             <select wire:model.lazy="form.Sex" class="form-control @error('form.Sex') is-invalid @enderror">
+                <option value="">Please choose</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>
@@ -257,6 +258,7 @@
         <div class="col-md-3 form-group marbot20">
             <label for="txtGrade">Grade Applied For / الصف المتقدم له</label>
             <select wire:model.lazy="form.Grade" class="form-control @error('form.Grade') is-invalid @enderror">
+                <option value="">Please choose</option>
                 @foreach($grades as $grade)
                     <option value="{{ $grade->id }}">{{ $grade->title }}: {{ number_format($grade->price) }} KD</option>
                 @endforeach
