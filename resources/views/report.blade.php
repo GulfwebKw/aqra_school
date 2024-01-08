@@ -216,7 +216,7 @@
         </td>
         <td colspan="3">
             <strong>
-                How to get to know us:
+                How did you know about {{ \HackerESQ\Settings\Facades\Settings::get('site_title') }} ?
             </strong><br>
             {{ $application->HowDidYouKnow }}
         </td>
