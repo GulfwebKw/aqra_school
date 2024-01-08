@@ -22,11 +22,13 @@ class Controller extends BaseController
             $mfObj = new PaymentMyfatoorahApiV2(Settings::get('MYFATOORAH_API_KEY'), config('myfatoorah.country_iso'), config('myfatoorah.test_mode'));
             $data = $mfObj->getPaymentStatus(request('paymentId'), 'PaymentId');
 
+            if (intval($data->CustomerReference) > 0)
+                $application = Application::query()->where('paid' , 0)->findOrFail($data->CustomerReference);
+            if ($data->InvoiceReference)
+                $invoiceReference = $data->InvoiceReference;
             if ($data->InvoiceStatus == 'Paid') {
                 $msg = 'Invoice is paid.';
                 $status = true;
-                $invoiceReference = $data->InvoiceReference;
-                $application = Application::query()->where('paid' , 0)->findOrFail($data->CustomerReference);
             } else if ($data->InvoiceStatus == 'Failed') {
                 $msg = 'Invoice is not paid due to ' . $data->InvoiceError;
             } else if ($data->InvoiceStatus == 'Expired') {
