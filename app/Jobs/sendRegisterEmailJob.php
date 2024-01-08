@@ -33,12 +33,18 @@ class sendRegisterEmailJob implements ShouldQueue
     public function handle(): void
     {
         $to = Settings::get( 'email_to' ,false);
-        if ( $to ) {
-            $application = Application::query()->findOrFail($this->aplication_id);
+        /** @var Application $application */
+        $application = Application::query()->findOrFail($this->aplication_id);
 
-            $pdf = PDF::loadView('pdf', compact('application'));
+        $pdf = PDF::loadView('pdf', compact('application'));
 
+        if (filter_var($to, FILTER_VALIDATE_EMAIL))
             Mail::to($to)->send(new RegisterEmail($pdf,$application));
-        }
+
+        if (filter_var($application->MEmail, FILTER_VALIDATE_EMAIL))
+            Mail::to($application->MEmail)->send(new RegisterEmail($pdf,$application));
+
+        if (filter_var($application->FEmail, FILTER_VALIDATE_EMAIL))
+            Mail::to($application->FEmail)->send(new RegisterEmail($pdf,$application));
     }
 }

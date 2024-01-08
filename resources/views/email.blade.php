@@ -13,7 +13,7 @@
                 {{ route('application.show' , ['uuid' => $application->uuid])  }}
             </a>
             <div style="margin-top:10px;"></div>
-            You can also view application information below the email and attachments..
+            You can also view application information below the email and attachments.
         </td>
         <td style="width: 20%;border: none; text-align: right;padding: 10px;">
             @if(\HackerESQ\Settings\Facades\Settings::get('logo_dark'))

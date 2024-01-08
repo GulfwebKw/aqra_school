@@ -2,7 +2,9 @@
 
 namespace App\Mail;
 
+use HackerESQ\Settings\Facades\Settings;
 use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Attachment;
@@ -31,6 +33,7 @@ class RegisterEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: new Address(Settings::get('email_from'), Settings::get('site_title')),
             subject: 'Application Form #'.$this->application->id,
         );
     }
