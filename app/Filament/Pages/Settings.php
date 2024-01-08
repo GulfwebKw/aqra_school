@@ -25,6 +25,7 @@ class Settings extends Page implements HasForms
     public $site_title ;
     public $logo ;
     public $logo_dark ;
+    public $pdf_background ;
     public $email_from ;
     public $email_to ;
     public $MYFATOORAH_API_KEY ;
@@ -36,6 +37,7 @@ class Settings extends Page implements HasForms
         'email_to' => ['required' , 'email'],
         'logo' => ['nullable' , 'image'],
         'logo_dark' => ['nullable' , 'image'],
+        'pdf_background' => ['nullable' , 'image'],
     ];
     protected $validationAttributes = [
         'site_title' => 'Site Title',
@@ -44,6 +46,7 @@ class Settings extends Page implements HasForms
         'email_to' => 'Notification Email address',
         'logo' => 'Logo Light',
         'logo_dark' => 'Logo Dark',
+        'pdf_background' => 'Logo Dark',
     ];
 
 
@@ -76,6 +79,10 @@ class Settings extends Page implements HasForms
                         ->label('Logo Dark')
                         ->type('file')
                         ->rule(['nullable' , 'image']),
+                    TextInput::make('pdf_background')
+                        ->label('PDF Background')
+                        ->type('file')
+                        ->rule(['nullable' , 'image']),
                 ])
                 ->columns(3),
             Section::make()
@@ -85,7 +92,7 @@ class Settings extends Page implements HasForms
                         ->label('Myfatoorah API Key')
                         ->required(),
                 ])
-                ->columns(2),
+                ->columns(1),
         ];
     }
 
@@ -95,23 +102,29 @@ class Settings extends Page implements HasForms
         $this->validate();
         $data = $this->form->getState() ;
 
+        $carbon = now();
         if ( $data['logo'] instanceof TemporaryUploadedFile) {
-            $carbon = now();
             $logoPath = "public/". $carbon->year .'/'.$carbon->month.'/'.$carbon->day.'/'.'logo.' . $data['logo']->guessExtension();
             $data['logo']->storeAs($logoPath);
             $last_logo_image = config::get('logo');
             config::force()->set(['logo' => $logoPath]);
             File::delete($last_logo_image);
         }
+        if ( $data['pdf_background'] instanceof TemporaryUploadedFile) {
+            $pdf_backgroundPath = "public/". $carbon->year .'/'.$carbon->month.'/'.$carbon->day.'/'.'pdf_background.' . $data['pdf_background']->guessExtension();
+            $data['pdf_background']->storeAs($pdf_backgroundPath);
+            $last_pdf_background_image = config::get('pdf_background');
+            config::force()->set(['pdf_background' => $pdf_backgroundPath]);
+            File::delete($last_pdf_background_image);
+        }
         if ( $data['logo_dark'] instanceof TemporaryUploadedFile ) {
-            $carbon = now();
             $logoPath = "public/". $carbon->year .'/'.$carbon->month.'/'.$carbon->day.'/'.'logo_dark.' . $data['logo_dark']->guessExtension();
             $data['logo_dark']->storeAs($logoPath);
             $last_logo_image = config::get('logo_dark');
             config::force()->set(['logo_dark' => $logoPath]);
             File::delete($last_logo_image);
         }
-        config::force()->set(collect($data)->except(['logo' , 'logo_dark'])->toArray());
+        config::force()->set(collect($data)->except(['logo' , 'logo_dark', 'pdf_background'])->toArray());
         Notification::make()
             ->title('Settings saved successfully!')
             ->success()
