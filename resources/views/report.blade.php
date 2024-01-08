@@ -2,13 +2,13 @@
     table, th, td {
         margin: auto;
         padding: 5px;
-        border: 1px solid black;
+        border: 1px solid #344050;
         border-collapse: collapse;
     }
 </style>
 <table style="width: 100%;border-collapse: collapse;">
     <tr>
-        <td colspan="4" style="background-color: black;color: white;padding: 10px 5px;">Student Information #{{ $application->id }}</td>
+        <td colspan="4" style="background-color: #344050;color: white;padding: 10px 5px;">Student Information #{{ $application->id }}</td>
     </tr>
     <tr>
         <td colspan="4">
@@ -73,7 +73,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4" style="background-color: black;color: white;padding: 10px 5px;">Father Information</td>
+        <td colspan="4" style="background-color: #344050;color: white;padding: 10px 5px;">Father Information</td>
     </tr>
     <tr>
         <td colspan="4">
@@ -124,7 +124,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4" style="background-color: black;color: white;padding: 10px 5px;">Mother Information</td>
+        <td colspan="4" style="background-color: #344050;color: white;padding: 10px 5px;">Mother Information</td>
     </tr>
     <tr>
         <td colspan="4">
@@ -175,8 +175,8 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2" style="background-color: black;color: white;padding: 10px 5px;">Invoice Information</td>
-        <td colspan="2" style="background-color: black;color: white;padding: 10px 5px;">Price: {{ number_format($application->price , 2) }} KD</td>
+        <td colspan="2" style="background-color: #344050;color: white;padding: 10px 5px;">Invoice Information</td>
+        <td colspan="2" style="background-color: #344050;color: white;padding: 10px 5px;">Price: {{ number_format($application->price , 2) }} KD</td>
     </tr>
     <tr>
         <td>
@@ -205,7 +205,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4" style="background-color: black;color: white;padding: 10px 5px;">Other Information</td>
+        <td colspan="4" style="background-color: #344050;color: white;padding: 10px 5px;">Other Information</td>
     </tr>
     <tr>
         <td>
