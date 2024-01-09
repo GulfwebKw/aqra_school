@@ -29,7 +29,7 @@
             <strong>
                 Date Of Birth:
             </strong><br>
-            {{ $application->dob }}
+            {{ $application->dob->format('Y-m-d') }}  <strong> | Age:</strong> {{ $application->age }} years
         </td>
         <td style="width: 25%;">
             <strong>

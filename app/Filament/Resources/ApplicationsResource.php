@@ -89,6 +89,9 @@ class ApplicationsResource extends Resource
                         Forms\Components\DatePicker::make('dob')
                             ->label('Birthdate')
                             ->required(),
+                        Forms\Components\TextInput::make('age')
+                            ->label('Age')
+                            ->disabled(),
                         Forms\Components\Select::make('Sex')
                             ->label('Sex')
                             ->required()

@@ -18,6 +18,7 @@ class RegisterForm extends Component
 
     public $form = [];
     public $errorMessage = null;
+    public $age = null;
     public $grades = [];
     public $rules = [
         'form.SFName' => ['required' , 'string'],
@@ -77,6 +78,12 @@ class RegisterForm extends Component
         'form.HowDidYouKnow' => '',
     ];
 
+
+    public function updated($name, $value)
+    {
+        if ( isset($this->form['dob-year'] , $this->form['dob-month'] , $this->form['dob-day']) and $this->form['dob-year'] and $this->form['dob-month'] and $this->form['dob-day'])
+            $this->age = now()->diffInYears(Carbon::createFromDate($this->form['dob-year'],$this->form['dob-month'],$this->form['dob-day']));
+    }
 
     public function save()
     {

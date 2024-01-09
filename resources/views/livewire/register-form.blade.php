@@ -28,9 +28,9 @@
         </div>
 
         <div class="col-md-3 form-group marbot20">
-            <label for="txtDOB">Date Of Birth / تاريخ الولادة</label>
+            <label for="txtDOB">Date Of Birth / تاريخ الميلاد</label>
             <div class="controls" style="display: flex;gap: 4px;">
-                <select wire:model.lazy="form.dob-day" class="form-control form-control-sm @error('form.dob-day') is-invalid @enderror">
+                <select wire:model.live="form.dob-day" class="form-control form-control-sm @error('form.dob-day') is-invalid @enderror">
                     <option value="">Day</option>
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -64,7 +64,7 @@
                     <option value="30">30</option>
                     <option value="31">31</option>
                 </select>
-                <select wire:model.lazy="form.dob-month" class="form-control form-control-sm @error('form.dob-month') is-invalid @enderror">
+                <select wire:model.live="form.dob-month" class="form-control form-control-sm @error('form.dob-month') is-invalid @enderror">
                     <option value="">Month</option>
                     <option value="01">Jan</option>
                     <option value="02">Feb</option>
@@ -79,7 +79,7 @@
                     <option value="11">Nov</option>
                     <option value="12">Dec</option>
                 </select>
-                <select wire:model.lazy="form.dob-year" class="form-control form-control-sm @error('form.dob-year') is-invalid @enderror">
+                <select wire:model.live="form.dob-year" class="form-control form-control-sm @error('form.dob-year') is-invalid @enderror">
                     <option value="">Year</option>
                     <option value="2020">2020</option>
                     <option value="2019">2019</option>
@@ -203,7 +203,11 @@
                     <option value="1900">1900</option>
                 </select>
             </div>
-
+            @if($age)
+            <div class="mt-2">
+                {{ $age }} years old.
+            </div>
+            @endif
         </div>
 
         <div class="col-md-3 form-group marbot20">

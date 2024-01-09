@@ -17,6 +17,7 @@ use Illuminate\Support\Carbon;
  * @property string $SPreviousSchool
  * @property string $SCurricullum
  * @property int $Grade_id
+ * @property ?int $age
  * @property Grade $grade
  * @property string $SHAddress
  * @property string $FName
@@ -89,8 +90,19 @@ class Application extends Model
         'paid_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'age',
+    ];
+
     public function grade()
     {
         return $this->belongsTo(Grade::class , 'Grade_id')->withTrashed();
+    }
+
+    public function getAgeAttribute():?int
+    {
+        if( $this->dob )
+            return now()->diffInYears($this->dob);
+        return null;
     }
 }
