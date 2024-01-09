@@ -114,7 +114,7 @@ class RegisterForm extends Component
                 'CustomerReference'  => $application->id,
                 'SourceInfo'         => $grade->title,
             ];
-            $mfObj = new PaymentMyfatoorahApiV2(Settings::get('MYFATOORAH_API_KEY'), config('myfatoorah.country_iso'), config('myfatoorah.test_mode'));
+            $mfObj = new PaymentMyfatoorahApiV2(Settings::get('MYFATOORAH_IS_LIVE', true) ? Settings::get('MYFATOORAH_API_KEY') : config('myfatoorah.api_key') , config('myfatoorah.country_iso'), ! (bool) Settings::get('MYFATOORAH_IS_LIVE', true));
             $data            = $mfObj->getInvoiceURL($payLoadData, 0);
             $application->invoiceId = $data['invoiceId'];
             $application->save();

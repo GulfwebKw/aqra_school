@@ -11,6 +11,7 @@ use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\File;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Filament\Forms\Components\Toggle;
 
 class Settings extends Page implements HasForms
 {
@@ -29,6 +30,7 @@ class Settings extends Page implements HasForms
     public $email_from ;
     public $email_to ;
     public $MYFATOORAH_API_KEY ;
+    public $MYFATOORAH_IS_LIVE ;
 
     public $rules = [
         'site_title' => ['required' , 'string'],
@@ -38,6 +40,7 @@ class Settings extends Page implements HasForms
         'logo' => ['nullable' , 'image'],
         'logo_dark' => ['nullable' , 'image'],
         'pdf_background' => ['nullable' , 'image'],
+        'MYFATOORAH_IS_LIVE' => ['nullable'],
     ];
     protected $validationAttributes = [
         'site_title' => 'Site Title',
@@ -47,6 +50,7 @@ class Settings extends Page implements HasForms
         'logo' => 'Logo Light',
         'logo_dark' => 'Logo Dark',
         'pdf_background' => 'Logo Dark',
+        'MYFATOORAH_IS_LIVE' => 'Gateway mode',
     ];
 
 
@@ -91,8 +95,13 @@ class Settings extends Page implements HasForms
                     TextInput::make('MYFATOORAH_API_KEY')
                         ->label('Myfatoorah API Key')
                         ->required(),
+                    Toggle::make('MYFATOORAH_IS_LIVE')
+                        ->label('Gateway in live mode? (Danger! In Production do not stay in red position!)')
+                        ->inline(false)
+                        ->onColor('success')
+                        ->offColor('danger'),
                 ])
-                ->columns(1),
+                ->columns(2),
         ];
     }
 

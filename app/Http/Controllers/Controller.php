@@ -19,7 +19,7 @@ class Controller extends BaseController
         $invoiceReference = null;
         $application = null;
         try {
-            $mfObj = new PaymentMyfatoorahApiV2(Settings::get('MYFATOORAH_API_KEY'), config('myfatoorah.country_iso'), config('myfatoorah.test_mode'));
+            $mfObj = new PaymentMyfatoorahApiV2(Settings::get('MYFATOORAH_IS_LIVE', true) ? Settings::get('MYFATOORAH_API_KEY') : config('myfatoorah.api_key') , config('myfatoorah.country_iso'), ! (bool) Settings::get('MYFATOORAH_IS_LIVE', true));
             $data = $mfObj->getPaymentStatus(request('paymentId'), 'PaymentId');
 
             if (intval($data->CustomerReference) > 0)
@@ -86,7 +86,7 @@ class Controller extends BaseController
                 'CustomerReference'  => $application->id,
                 'SourceInfo'         => $application->grade->title,
             ];
-            $mfObj = new PaymentMyfatoorahApiV2(Settings::get('MYFATOORAH_API_KEY'), config('myfatoorah.country_iso'), config('myfatoorah.test_mode'));
+            $mfObj = new PaymentMyfatoorahApiV2(Settings::get('MYFATOORAH_IS_LIVE', true) ? Settings::get('MYFATOORAH_API_KEY') : config('myfatoorah.api_key') , config('myfatoorah.country_iso'), ! (bool) Settings::get('MYFATOORAH_IS_LIVE', true));
             $data            = $mfObj->getInvoiceURL($payLoadData, 0);
             $application->invoiceId = $data['invoiceId'];
             $application->price = $payLoadData['InvoiceValue'];
