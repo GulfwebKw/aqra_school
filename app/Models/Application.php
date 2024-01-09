@@ -20,6 +20,15 @@ use Illuminate\Support\Carbon;
  * @property ?int $age
  * @property Grade $grade
  * @property string $SHAddress
+ * @property int $Duration
+ * @property string $leaveReason
+ * @property string $Medical
+ * @property int $Siblings
+ * @property string $SiblingsName
+ * @property string $WhichGrades
+ * @property string $PCEnglish
+ * @property string $Marital
+ * @property string $Educational
  * @property string $FName
  * @property string $FNationlity
  * @property string $FCivilId
@@ -58,6 +67,15 @@ class Application extends Model
         'SPreviousSchool',
         'SCurricullum',
         'Grade_id',
+        'Duration',
+        'leaveReason',
+        'Medical',
+        'Siblings',
+        'SiblingsName',
+        'WhichGrades',
+        'PCEnglish',
+        'Marital',
+        'Educational',
         'SHAddress',
         'FName',
         'FNationlity',

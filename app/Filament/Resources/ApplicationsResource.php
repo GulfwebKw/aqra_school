@@ -82,6 +82,10 @@ class ApplicationsResource extends Resource
                             ->label('Full Name')
                             ->required()
                             ->maxLength(255),
+                        Forms\Components\Select::make('Grade_id')
+                            ->relationship('grade', 'title')
+                            ->searchable()
+                            ->required(),
                         Forms\Components\TextInput::make('SNationlity')
                             ->label('Nationality')
                             ->required()
@@ -109,6 +113,30 @@ class ApplicationsResource extends Resource
                             ->maxLength(255),
                         Forms\Components\TextInput::make('SCurricullum')
                             ->label('Curriculum')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('Duration')
+                            ->label('Duration')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('leaveReason')
+                            ->label('Reason to leave')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('Medical')
+                            ->label('Medical Issues')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('Siblings')
+                            ->label('How many Siblings at IQAS')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('SiblingsName')
+                            ->label('Siblings Name')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('WhichGrades')
+                            ->label('Which Grades')
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('SHAddress')
@@ -229,6 +257,26 @@ class ApplicationsResource extends Resource
                         Forms\Components\TextInput::make('HowDidYouKnow')
                             ->label('How to get to know us')
                             ->maxLength(255),
+                        Forms\Components\Select::make('PCEnglish')
+                            ->label('Parents Command of English')
+                            ->options([
+                                'None' => 'None',
+                                'Good' => 'Good',
+                                'Excellent' => 'Excellent',
+                            ]),
+                        Forms\Components\Select::make('Marital')
+                            ->label('Marital Status')
+                            ->options([
+                                'Married' => 'Married',
+                                'Divorced' => 'Divorced',
+                                'Widowed' => 'Widowed',
+                            ]),
+                        Forms\Components\Select::make('Educational')
+                            ->label('Educational Custody')
+                            ->options([
+                                'Father' => 'Father',
+                                'Mother' => 'Mother',
+                            ]),
                     ]),
             ]);
     }

@@ -8,17 +8,23 @@
 </style>
 <table style="width: 100%;border-collapse: collapse;">
     <tr>
-        <td colspan="4" style="background-color: #344050;color: white;padding: 10px 5px;">Student Information #{{ $application->id }}</td>
+        <td colspan="4" style="background-color: #344050;color: white;padding: 5px 5px;">Student Information #{{ $application->id }}</td>
     </tr>
     <tr>
         <td colspan="4">
             <strong>
                 Student Full Name:
-            </strong><br>
+            </strong>
             {{ $application->SFName }}
         </td>
     </tr>
     <tr>
+        <td style="width: 25%;">
+            <strong>
+                Grade Applied For:
+            </strong><br>
+            {{ $application->grade->title }}
+        </td>
         <td style="width: 25%;">
             <strong>
                 Nationality:
@@ -29,7 +35,7 @@
             <strong>
                 Date Of Birth:
             </strong><br>
-            {{ $application->dob->format('Y-m-d') }}  <strong> | Age:</strong> {{ $application->age }} years
+            {{ $application->dob->format('Y-m-d') }}  <strong>| Age:</strong> {{ $application->age }}
         </td>
         <td style="width: 25%;">
             <strong>
@@ -37,14 +43,14 @@
             </strong><br>
             {{ $application->Sex }}
         </td>
-        <td style="width: 25%;">
+    </tr>
+    <tr>
+        <td>
             <strong>
                 Student Civil ID:
             </strong><br>
             {{ $application->SCivilId }}
         </td>
-    </tr>
-    <tr>
         <td>
             <strong>
                 Previous School Name:
@@ -57,11 +63,45 @@
             </strong><br>
             {{ $application->SCurricullum }}
         </td>
+        <td>
+            <strong>
+                Duration:
+            </strong><br>
+            {{ $application->Duration }}
+        </td>
+    </tr>
+    <tr>
         <td colspan="2">
             <strong>
-                Grade Applied For:
+                Reason to leave:
             </strong><br>
-            {{ $application->grade->title }}
+            {{ $application->leaveReason }}
+        </td>
+        <td colspan="2">
+            <strong>
+                Medical Issues:
+            </strong><br>
+            {{ $application->Medical }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <strong>
+                How many Siblings at IQAS:
+            </strong><br>
+            {{ $application->Siblings }}
+        </td>
+        <td>
+            <strong>
+                Siblings Name:
+            </strong><br>
+            {{ $application->SiblingsName }}
+        </td>
+        <td>
+            <strong>
+                Which Grades:
+            </strong><br>
+            {{ $application->WhichGrades }}
         </td>
     </tr>
     <tr>
@@ -73,13 +113,13 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4" style="background-color: #344050;color: white;padding: 10px 5px;">Father Information</td>
+        <td colspan="4" style="background-color: #344050;color: white;padding: 5px 5px;">Father Information</td>
     </tr>
     <tr>
         <td colspan="4">
             <strong>
                 Father Full Name:
-            </strong><br>
+            </strong>
             {{ $application->FName }}
         </td>
     </tr>
@@ -124,13 +164,13 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4" style="background-color: #344050;color: white;padding: 10px 5px;">Mother Information</td>
+        <td colspan="4" style="background-color: #344050;color: white;padding: 5px 5px;">Mother Information</td>
     </tr>
     <tr>
         <td colspan="4">
             <strong>
                 Mother Full Name:
-            </strong><br>
+            </strong>
             {{ $application->MName }}
         </td>
     </tr>
@@ -175,8 +215,8 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2" style="background-color: #344050;color: white;padding: 10px 5px;">Invoice Information</td>
-        <td colspan="2" style="background-color: #344050;color: white;padding: 10px 5px;">Price: {{ number_format($application->price , 2) }} KD</td>
+        <td colspan="2" style="background-color: #344050;color: white;padding: 5px 5px;">Invoice Information</td>
+        <td colspan="2" style="background-color: #344050;color: white;padding: 5px 5px;">Price: {{ number_format($application->price , 2) }} KD</td>
     </tr>
     <tr>
         <td>
@@ -205,7 +245,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4" style="background-color: #344050;color: white;padding: 10px 5px;">Other Information</td>
+        <td colspan="4" style="background-color: #344050;color: white;padding: 5px 5px;">Other Information</td>
     </tr>
     <tr>
         <td>
@@ -219,6 +259,26 @@
                 How did you know about {{ \HackerESQ\Settings\Facades\Settings::get('site_title') }} ?
             </strong><br>
             {{ $application->HowDidYouKnow }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <strong>
+                Parents Command of English:
+            </strong><br>
+            {{ $application->PCEnglish }}
+        </td>
+        <td>
+            <strong>
+                Marital Status:
+            </strong><br>
+            {{ $application->Marital }}
+        </td>
+        <td>
+            <strong>
+                Educational Custody:
+            </strong><br>
+            {{ $application->Educational }}
         </td>
     </tr>
 </table>

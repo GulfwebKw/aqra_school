@@ -47,6 +47,15 @@ class RegisterForm extends Component
         'form.MOccupation' => ['required' , 'string'],
         'form.MBAddress' => ['required' , 'string'],
         'form.HowDidYouKnow' => ['required' , 'string'],
+        'form.leaveReason' => ['required' , 'string'],
+        'form.Medical' => ['nullable' , 'string'],
+        'form.Siblings' => ['required' , 'int' , 'max:10', 'min:0'],
+        'form.Duration' => ['required' , 'int' , 'max:10', 'min:0'],
+        'form.SiblingsName' => ['required' , 'string'],
+        'form.WhichGrades' => ['required' , 'string'],
+        'form.PCEnglish' => ['required' , 'string'],
+        'form.Marital' => ['required' , 'string'],
+        'form.Educational' => ['required' , 'string'],
     ];
 
     protected $validationAttributes = [
@@ -76,6 +85,15 @@ class RegisterForm extends Component
         'form.MOccupation' => 'Mother Occupation',
         'form.MBAddress' => 'Mother Business Address',
         'form.HowDidYouKnow' => '',
+        'form.leaveReason' => '',
+        'form.Duration' => '',
+        'form.Medical' => '',
+        'form.WhichGrades' => '',
+        'form.Siblings' => '',
+        'form.SiblingsName' => '',
+        'form.PCEnglish' => '',
+        'form.Marital' => '',
+        'form.Educational' => '',
     ];
 
 
