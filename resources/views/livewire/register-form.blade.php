@@ -313,6 +313,15 @@
             @enderror
         </div>
 
+        <div class="col-md-6 form-group marbot20">
+            <label for="txtSCurricullum">How many Siblings at IQAS / عدد الأخوة في مدرسة اقرأ</label>
+            <input wire:model.lazy="form.Siblings" max="10" min="0" type="number" maxlength="50" class="form-control @error('form.Siblings') is-invalid @enderror"/>
+            @error('form.Siblings')
+            <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
         <div class="col-md-3 form-group marbot20">
             <label for="txtSCurricullum">Siblings Name / أسماء الأخوة </label>
             <input wire:model.lazy="form.SiblingsName" type="text" maxlength="50" class="form-control @error('form.SiblingsName') is-invalid @enderror"/>
@@ -327,15 +336,6 @@
             <label for="txtSCurricullum">Which Grades / فصول الأخوة </label>
             <input wire:model.lazy="form.WhichGrades" type="text" maxlength="50" class="form-control @error('form.WhichGrades') is-invalid @enderror"/>
             @error('form.WhichGrades')
-            <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-        <div class="col-md-6 form-group marbot20">
-            <label for="txtSCurricullum">How many Siblings at IQAS / عدد الأخوة في مدرسة اقرأ</label>
-            <input wire:model.lazy="form.Siblings" max="10" min="0" type="number" maxlength="50" class="form-control @error('form.Siblings') is-invalid @enderror"/>
-            @error('form.Siblings')
             <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
