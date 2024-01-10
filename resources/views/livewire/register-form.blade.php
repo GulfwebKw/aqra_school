@@ -535,7 +535,7 @@
             <label for="txtHowDidYouKnow">Parents Command of English / إجادة الوالدين للغة الإنجليزية</label>
             <select wire:model.lazy="form.PCEnglish" class="form-control @error('form.PCEnglish') is-invalid @enderror">
                 <option value="">Please choose</option>
-                <option value="None">None / فصول الأخوة</option>
+                <option value="None">None / لا أجيد</option>
                 <option value="Good">Good /متوسط </option>
                 <option value="Excellent">Excellent /ممتاز </option>
             </select>
