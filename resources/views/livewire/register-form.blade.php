@@ -295,7 +295,7 @@
             @enderror
         </div>
         <div class="col-md-6 form-group marbot20">
-            <label for="txtSCurricullum">Reason to leave the previous school / سبب ترك المدرسة السابقة </label>
+            <label for="txtSCurricullum">Reason for leaving previous school / سبب ترك المدرسة السابقة </label>
             <input wire:model.lazy="form.leaveReason" type="text" maxlength="50" class="form-control @error('form.leaveReason') is-invalid @enderror"/>
             @error('form.leaveReason')
             <span class="invalid-feedback" role="alert">
