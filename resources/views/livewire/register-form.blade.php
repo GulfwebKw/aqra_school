@@ -414,6 +414,16 @@
     </div>
     <div class="row">
         <div class="col-md-3 form-group marbot20">
+            <label for="txtMOccupation">Degree / المستوى التعليمي (الشهادة)</label>
+            <input wire:model.lazy="form.FDegree" type="text" maxlength="50" class="form-control @error('form.FDegree') is-invalid @enderror"
+                   onkeypress="return isNumericKey(event)"/>
+            @error('form.FDegree')
+            <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="col-md-3 form-group marbot20">
             <label for="txtFOccupation">Occupation / الوظيفة</label>
             <input wire:model.lazy="form.FOccupation" type="text" maxlength="50" class="form-control @error('form.FOccupation') is-invalid @enderror"
                    onkeypress="return isNumericKey(event)"/>
@@ -424,7 +434,7 @@
             @enderror
         </div>
 
-        <div class="col-md-9 form-group marbot20">
+        <div class="col-md-6 form-group marbot20">
             <label for="txtFBAddress">Business Address / عنوان العمل</label>
             <input wire:model.lazy="form.FBAddress" type="text" maxlength="150" class="form-control @error('form.FBAddress') is-invalid @enderror"/>
             @error('form.FBAddress')
@@ -498,6 +508,16 @@
     </div>
     <div class="row">
         <div class="col-md-3 form-group marbot20">
+            <label for="txtMOccupation">Degree / المستوى التعليمي (الشهادة)</label>
+            <input wire:model.lazy="form.MDegree" type="text" maxlength="50" class="form-control @error('form.MDegree') is-invalid @enderror"
+                   onkeypress="return isNumericKey(event)"/>
+            @error('form.MDegree')
+            <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="col-md-3 form-group marbot20">
             <label for="txtMOccupation">Occupation / الوظيفة</label>
             <input wire:model.lazy="form.MOccupation" type="text" maxlength="50" class="form-control @error('form.MOccupation') is-invalid @enderror"
                    onkeypress="return isNumericKey(event)"/>
@@ -507,7 +527,7 @@
                 </span>
             @enderror
         </div>
-        <div class="col-md-9 form-group marbot20">
+        <div class="col-md-6 form-group marbot20">
             <label for="txtMBAddress">Business Address / عنوان العمل</label>
             <input wire:model.lazy="form.MBAddress" type="text" maxlength="150" class="form-control @error('form.MBAddress') is-invalid @enderror"/>
             @error('form.MBAddress')

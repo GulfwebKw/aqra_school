@@ -48,6 +48,8 @@ class RegisterForm extends Component
         'form.MBAddress' => ['required' , 'string'],
         'form.HowDidYouKnow' => ['required' , 'string'],
         'form.leaveReason' => ['required' , 'string'],
+        'form.FDegree' => ['required' , 'string'],
+        'form.MDegree' => ['required' , 'string'],
         'form.Medical' => ['nullable' , 'string'],
         'form.Siblings' => ['required' , 'int' , 'max:10', 'min:0'],
         'form.Duration' => ['required' , 'int' , 'max:10', 'min:0'],
@@ -94,6 +96,8 @@ class RegisterForm extends Component
         'form.PCEnglish' => '',
         'form.Marital' => '',
         'form.Educational' => '',
+        'form.MDegree' => 'Degree',
+        'form.FDegree' => 'Degree',
     ];
 
 

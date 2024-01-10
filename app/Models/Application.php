@@ -48,6 +48,8 @@ use Illuminate\Support\Carbon;
  * @property string $uuid
  * @property float $price
  * @property string $invoiceReference
+ * @property string $FDegree
+ * @property string $MDegree
  * @property Carbon $paid_at
  * @property boolean $paid
  * @property Carbon $created_at
@@ -98,6 +100,8 @@ class Application extends Model
         'invoiceReference',
         'invoiceId',
         'uuid',
+        'FDegree',
+        'MDegree',
     ];
 
     protected $casts = [

@@ -171,6 +171,10 @@ class ApplicationsResource extends Resource
                             ->label('Civil ID')
                             ->required()
                             ->maxLength(255),
+                        Forms\Components\TextInput::make('FDegree')
+                            ->label('Degree')
+                            ->required()
+                            ->maxLength(255),
                         Forms\Components\TextInput::make('FMobile')
                             ->label('Mobile')
                             ->required()
@@ -205,6 +209,10 @@ class ApplicationsResource extends Resource
                             ->maxLength(255),
                         Forms\Components\TextInput::make('MCivilId')
                             ->label('Civil ID')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('MDegree')
+                            ->label('Degree')
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('MMobile')

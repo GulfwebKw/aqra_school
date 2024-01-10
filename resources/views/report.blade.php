@@ -152,11 +152,17 @@
     <tr>
         <td>
             <strong>
+                Degree:
+            </strong><br>
+            {{ $application->FDegree }}
+        </td>
+        <td>
+            <strong>
                 Occupation:
             </strong><br>
             {{ $application->FOccupation }}
         </td>
-        <td colspan="3">
+        <td colspan="2">
             <strong>
                 Business Address:
             </strong><br>
@@ -203,11 +209,17 @@
     <tr>
         <td>
             <strong>
+                Degree:
+            </strong><br>
+            {{ $application->MDegree }}
+        </td>
+        <td>
+            <strong>
                 Occupation:
             </strong><br>
             {{ $application->MOccupation }}
         </td>
-        <td colspan="3">
+        <td colspan="2">
             <strong>
                 Business Address:
             </strong><br>
