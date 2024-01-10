@@ -2,7 +2,9 @@
     <h2 class="h4 text-title marbot20">Application Form / استمارة طلب</h2>
 
     <div class="alert alert-warning">
-        please fill out the form in English/ يرجى تعبئة البيانات باللغة الإنجليزية
+        <strong style="font-size: large;">
+            Please fill out the form in English / يرجى تعبئة البيانات باللغة الإنجليزية
+        </strong>
     </div>
     <h2 class="h4 text-red marbot20 mt-5">Student Information / معلومات الطالب</h2>
     <div class="form-group marbot20">
