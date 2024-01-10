@@ -269,7 +269,16 @@
 
         <div class="col-md-3 form-group marbot20">
             <label for="txtSCurricullum">Curriculum / المنهج المتبع في المدرسة السابقة</label>
-            <input wire:model.lazy="form.SCurricullum" type="text" maxlength="50" class="form-control @error('form.SCurricullum') is-invalid @enderror"/>
+            <select wire:model.lazy="form.SCurricullum" class="form-control @error('form.SCurricullum') is-invalid @enderror">
+                <option value="">Please choose</option>
+                <option value="American">American</option>
+                <option value="British">British</option>
+                <option value="IB">International Baccalaureate (IB)</option>
+                <option value="French">French</option>
+                <option value="Indian">Indian</option>
+                <option value="Pakistani">Pakistani</option>
+                <option value="Arabic">Arabic ( Government)</option>
+            </select>
             @error('form.SCurricullum')
             <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

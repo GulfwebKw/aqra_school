@@ -157,6 +157,7 @@ class RegisterForm extends Component
             ->orderBy('ordering')->get();
         $this->form['Sex'] = '';
         $this->form['Grade'] = '';
+        $this->form['SCurricullum'] = '';
     }
     public function render()
     {

@@ -111,10 +111,18 @@ class ApplicationsResource extends Resource
                             ->label('Previous School Name')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('SCurricullum')
+                        Forms\Components\Select::make('SCurricullum')
                             ->label('Curriculum')
                             ->required()
-                            ->maxLength(255),
+                            ->options([
+                                'American'=>'American',
+                                'British'=>'British',
+                                'IB'=>'International Baccalaureate (IB)',
+                                'French'=>'French',
+                                'Indian'=>'Indian',
+                                'Pakistani'=>'Pakistani',
+                                'Arabic'=>'Arabic ( Government)',
+                            ]),
                         Forms\Components\TextInput::make('Duration')
                             ->label('Duration')
                             ->required()
@@ -411,8 +419,17 @@ class ApplicationsResource extends Resource
                             ->label('Civil ID'),
                         TextConstraint::make('SPreviousSchool')
                             ->label('Previous School Name'),
-                        TextConstraint::make('SCurricullum')
-                            ->label('Curriculum'),
+                        QueryBuilder\Constraints\SelectConstraint::make('SCurricullum')
+                            ->label('Curriculum')
+                            ->options([
+                                'American'=>'American',
+                                'British'=>'British',
+                                'IB'=>'International Baccalaureate (IB)',
+                                'French'=>'French',
+                                'Indian'=>'Indian',
+                                'Pakistani'=>'Pakistani',
+                                'Arabic'=>'Arabic ( Government)',
+                            ]),
                         TextConstraint::make('SHAddress')
                             ->label('Home Address'),
                         TextConstraint::make('FName')
