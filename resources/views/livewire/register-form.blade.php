@@ -519,18 +519,6 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12 form-group marbot20">
-            <label for="txtHowDidYouKnow">How did you know about {{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }} ? كيف عرفت عن مدرسة اقرأ
-                الأمريكية؟</label>
-            <input wire:model.lazy="form.HowDidYouKnow" type="text" maxlength="150" class="form-control @error('form.HowDidYouKnow') is-invalid @enderror"
-                   onkeypress="return isNumericKey(event)"/>
-            @error('form.HowDidYouKnow')
-            <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-
         <div class="col-md-6 form-group marbot20">
             <label for="txtHowDidYouKnow">Parents Command of English / إجادة الوالدين للغة الإنجليزية</label>
             <select wire:model.lazy="form.PCEnglish" class="form-control @error('form.PCEnglish') is-invalid @enderror">
@@ -569,6 +557,17 @@
                 <option value="Mother">Mother / الأم</option>
             </select>
             @error('form.Educational')
+            <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="col-md-12 form-group marbot20">
+            <label for="txtHowDidYouKnow">How did you know about {{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }} ? كيف عرفت عن مدرسة اقرأ
+                الأمريكية؟</label>
+            <input wire:model.lazy="form.HowDidYouKnow" type="text" maxlength="150" class="form-control @error('form.HowDidYouKnow') is-invalid @enderror"
+                   onkeypress="return isNumericKey(event)"/>
+            @error('form.HowDidYouKnow')
             <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

@@ -248,20 +248,6 @@
         <td colspan="4" style="background-color: #344050;color: white;padding: 5px 5px;">Other Information</td>
     </tr>
     <tr>
-        <td>
-            <strong>
-                Created at:
-            </strong><br>
-            {{ $application->created_at }}
-        </td>
-        <td colspan="3">
-            <strong>
-                How did you know about {{ \HackerESQ\Settings\Facades\Settings::get('site_title') }} ?
-            </strong><br>
-            {{ $application->HowDidYouKnow }}
-        </td>
-    </tr>
-    <tr>
         <td colspan="2">
             <strong>
                 Parents Command of English:
@@ -279,6 +265,20 @@
                 Educational Custody:
             </strong><br>
             {{ $application->Educational }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>
+                Created at:
+            </strong><br>
+            {{ $application->created_at }}
+        </td>
+        <td colspan="3">
+            <strong>
+                How did you know about {{ \HackerESQ\Settings\Facades\Settings::get('site_title') }} ?
+            </strong><br>
+            {{ $application->HowDidYouKnow }}
         </td>
     </tr>
 </table>

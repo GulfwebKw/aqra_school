@@ -262,9 +262,6 @@ class ApplicationsResource extends Resource
                         Forms\Components\DateTimePicker::make('created_at')
                             ->label('Filled at')
                             ->disabled(),
-                        Forms\Components\TextInput::make('HowDidYouKnow')
-                            ->label('How to get to know us')
-                            ->maxLength(255),
                         Forms\Components\Select::make('PCEnglish')
                             ->label('Parents Command of English')
                             ->options([
@@ -285,6 +282,9 @@ class ApplicationsResource extends Resource
                                 'Father' => 'Father',
                                 'Mother' => 'Mother',
                             ]),
+                        Forms\Components\TextInput::make('HowDidYouKnow')
+                            ->label('How to get to know us')
+                            ->maxLength(255),
                     ]),
             ]);
     }
