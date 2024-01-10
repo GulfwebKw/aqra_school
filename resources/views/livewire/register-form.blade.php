@@ -227,7 +227,7 @@
         </div>
 
         <div class="col-md-3 form-group marbot20">
-            <label for="txtSex">Sex / الجنس</label>
+            <label for="txtSex">Gender / الجنس</label>
             <select wire:model.lazy="form.Sex" class="form-control @error('form.Sex') is-invalid @enderror">
                 <option value="">Please choose</option>
                 <option value="Male">Male</option>

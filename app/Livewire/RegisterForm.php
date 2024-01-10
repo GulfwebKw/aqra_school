@@ -64,7 +64,7 @@ class RegisterForm extends Component
         'form.dob-day' => 'Birthdate',
         'form.dob-month' => 'Birthdate',
         'form.dob-year' => 'Birthdate',
-        'form.Sex' => 'Sex',
+        'form.Sex' => 'Gender',
         'form.SCivilId' => 'Student Civil ID',
         'form.SPreviousSchool' => 'Previous School Name',
         'form.SCurricullum' => 'Curriculum',

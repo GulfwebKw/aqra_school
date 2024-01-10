@@ -39,7 +39,7 @@
         </td>
         <td style="width: 25%;">
             <strong>
-                Sex:
+                Gender:
             </strong><br>
             {{ $application->Sex }}
         </td>

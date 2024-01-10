@@ -97,7 +97,7 @@ class ApplicationsResource extends Resource
                             ->label('Age')
                             ->disabled(),
                         Forms\Components\Select::make('Sex')
-                            ->label('Sex')
+                            ->label('Gender')
                             ->required()
                             ->options([
                                 'Male'=>'Male',
@@ -299,7 +299,7 @@ class ApplicationsResource extends Resource
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('Sex')
-                    ->label('Sex')
+                    ->label('Gender')
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('SCivilId')
@@ -402,7 +402,7 @@ class ApplicationsResource extends Resource
                         DateConstraint::make('dob')
                             ->label('Birthdate'),
                         QueryBuilder\Constraints\SelectConstraint::make('Sex')
-                            ->label('Sex')
+                            ->label('Gender')
                             ->options([
                                 'Male'=>'Male',
                                 'Female'=>'Female',
