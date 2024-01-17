@@ -99,7 +99,7 @@ class Settings extends Page implements HasForms
                     Select::make('ageFrom')
                         ->label('Calculate age from')
                         ->required()
-                        ->options(['now' => 'Current time' , 'custom' => 'Special Date']),
+                        ->options(['now' => 'Time of Filling form' , 'custom' => 'Special Date']),
                     config::get('ageFrom', 'now') === "custom" ? DatePicker::make('ageFromDate')
                         ->label('Calculate age from this date')
                         ->required() : Hidden::make('temp'),
