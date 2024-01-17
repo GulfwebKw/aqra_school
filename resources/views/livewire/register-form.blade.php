@@ -2,7 +2,9 @@
     <h2 class="h4 text-title marbot20">Application Form / استمارة طلب</h2>
 
     <div class="alert alert-warning">
-        please fill out the form in English/ يرجى تعبئة البيانات باللغة الإنجليزية
+        <strong style="font-size: large;">
+            Please fill out the form in English / يرجى تعبئة البيانات باللغة الإنجليزية
+        </strong>
     </div>
     <h2 class="h4 text-red marbot20 mt-5">Student Information / معلومات الطالب</h2>
     <div class="form-group marbot20">
@@ -227,7 +229,7 @@
         </div>
 
         <div class="col-md-3 form-group marbot20">
-            <label for="txtSex">Sex / الجنس</label>
+            <label for="txtSex">Gender / الجنس</label>
             <select wire:model.lazy="form.Sex" class="form-control @error('form.Sex') is-invalid @enderror">
                 <option value="">Please choose</option>
                 <option value="Male">Male</option>
@@ -267,7 +269,16 @@
 
         <div class="col-md-3 form-group marbot20">
             <label for="txtSCurricullum">Curriculum / المنهج المتبع في المدرسة السابقة</label>
-            <input wire:model.lazy="form.SCurricullum" type="text" maxlength="50" class="form-control @error('form.SCurricullum') is-invalid @enderror"/>
+            <select wire:model.lazy="form.SCurricullum" class="form-control @error('form.SCurricullum') is-invalid @enderror">
+                <option value="">Please choose</option>
+                <option value="American">American</option>
+                <option value="British">British</option>
+                <option value="IB">International Baccalaureate (IB)</option>
+                <option value="French">French</option>
+                <option value="Indian">Indian</option>
+                <option value="Pakistani">Pakistani</option>
+                <option value="Arabic">Arabic ( Government)</option>
+            </select>
             @error('form.SCurricullum')
             <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -284,7 +295,7 @@
             @enderror
         </div>
         <div class="col-md-6 form-group marbot20">
-            <label for="txtSCurricullum">Reason to leave the previous school / سبب ترك المدرسة السابقة </label>
+            <label for="txtSCurricullum">Reason for leaving previous school / سبب ترك المدرسة السابقة </label>
             <input wire:model.lazy="form.leaveReason" type="text" maxlength="50" class="form-control @error('form.leaveReason') is-invalid @enderror"/>
             @error('form.leaveReason')
             <span class="invalid-feedback" role="alert">
@@ -302,6 +313,15 @@
             @enderror
         </div>
 
+        <div class="col-md-6 form-group marbot20">
+            <label for="txtSCurricullum">How many Siblings at IQAS / عدد الأخوة في مدرسة اقرأ</label>
+            <input wire:model.lazy="form.Siblings" max="10" min="0" type="number" maxlength="50" class="form-control @error('form.Siblings') is-invalid @enderror"/>
+            @error('form.Siblings')
+            <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
         <div class="col-md-3 form-group marbot20">
             <label for="txtSCurricullum">Siblings Name / أسماء الأخوة </label>
             <input wire:model.lazy="form.SiblingsName" type="text" maxlength="50" class="form-control @error('form.SiblingsName') is-invalid @enderror"/>
@@ -316,15 +336,6 @@
             <label for="txtSCurricullum">Which Grades / فصول الأخوة </label>
             <input wire:model.lazy="form.WhichGrades" type="text" maxlength="50" class="form-control @error('form.WhichGrades') is-invalid @enderror"/>
             @error('form.WhichGrades')
-            <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-        <div class="col-md-6 form-group marbot20">
-            <label for="txtSCurricullum">How many Siblings at IQAS / عدد الأخوة في مدرسة اقرأ</label>
-            <input wire:model.lazy="form.Siblings" max="10" min="0" type="number" maxlength="50" class="form-control @error('form.Siblings') is-invalid @enderror"/>
-            @error('form.Siblings')
             <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -403,6 +414,16 @@
     </div>
     <div class="row">
         <div class="col-md-3 form-group marbot20">
+            <label for="txtMOccupation">Degree / المستوى التعليمي (الشهادة)</label>
+            <input wire:model.lazy="form.FDegree" type="text" maxlength="50" class="form-control @error('form.FDegree') is-invalid @enderror"
+                   onkeypress="return isNumericKey(event)"/>
+            @error('form.FDegree')
+            <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="col-md-3 form-group marbot20">
             <label for="txtFOccupation">Occupation / الوظيفة</label>
             <input wire:model.lazy="form.FOccupation" type="text" maxlength="50" class="form-control @error('form.FOccupation') is-invalid @enderror"
                    onkeypress="return isNumericKey(event)"/>
@@ -413,7 +434,7 @@
             @enderror
         </div>
 
-        <div class="col-md-9 form-group marbot20">
+        <div class="col-md-6 form-group marbot20">
             <label for="txtFBAddress">Business Address / عنوان العمل</label>
             <input wire:model.lazy="form.FBAddress" type="text" maxlength="150" class="form-control @error('form.FBAddress') is-invalid @enderror"/>
             @error('form.FBAddress')
@@ -487,6 +508,16 @@
     </div>
     <div class="row">
         <div class="col-md-3 form-group marbot20">
+            <label for="txtMOccupation">Degree / المستوى التعليمي (الشهادة)</label>
+            <input wire:model.lazy="form.MDegree" type="text" maxlength="50" class="form-control @error('form.MDegree') is-invalid @enderror"
+                   onkeypress="return isNumericKey(event)"/>
+            @error('form.MDegree')
+            <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="col-md-3 form-group marbot20">
             <label for="txtMOccupation">Occupation / الوظيفة</label>
             <input wire:model.lazy="form.MOccupation" type="text" maxlength="50" class="form-control @error('form.MOccupation') is-invalid @enderror"
                    onkeypress="return isNumericKey(event)"/>
@@ -496,7 +527,7 @@
                 </span>
             @enderror
         </div>
-        <div class="col-md-9 form-group marbot20">
+        <div class="col-md-6 form-group marbot20">
             <label for="txtMBAddress">Business Address / عنوان العمل</label>
             <input wire:model.lazy="form.MBAddress" type="text" maxlength="150" class="form-control @error('form.MBAddress') is-invalid @enderror"/>
             @error('form.MBAddress')
@@ -508,23 +539,11 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12 form-group marbot20">
-            <label for="txtHowDidYouKnow">How did you know about {{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }} ? كيف عرفت عن مدرسة اقرأ
-                الأمريكية؟</label>
-            <input wire:model.lazy="form.HowDidYouKnow" type="text" maxlength="150" class="form-control @error('form.HowDidYouKnow') is-invalid @enderror"
-                   onkeypress="return isNumericKey(event)"/>
-            @error('form.HowDidYouKnow')
-            <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-
         <div class="col-md-6 form-group marbot20">
             <label for="txtHowDidYouKnow">Parents Command of English / إجادة الوالدين للغة الإنجليزية</label>
             <select wire:model.lazy="form.PCEnglish" class="form-control @error('form.PCEnglish') is-invalid @enderror">
                 <option value="">Please choose</option>
-                <option value="None">None / فصول الأخوة</option>
+                <option value="None">None / لا أجيد</option>
                 <option value="Good">Good /متوسط </option>
                 <option value="Excellent">Excellent /ممتاز </option>
             </select>
@@ -558,6 +577,17 @@
                 <option value="Mother">Mother / الأم</option>
             </select>
             @error('form.Educational')
+            <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="col-md-12 form-group marbot20">
+            <label for="txtHowDidYouKnow">How did you know about {{ \HackerESQ\Settings\Facades\Settings::get('site_title', 'Site title') }} ? كيف عرفت عن مدرسة اقرأ
+                الأمريكية؟</label>
+            <input wire:model.lazy="form.HowDidYouKnow" type="text" maxlength="150" class="form-control @error('form.HowDidYouKnow') is-invalid @enderror"
+                   onkeypress="return isNumericKey(event)"/>
+            @error('form.HowDidYouKnow')
             <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

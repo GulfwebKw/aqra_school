@@ -97,7 +97,7 @@ class ApplicationsResource extends Resource
                             ->label('Age')
                             ->disabled(),
                         Forms\Components\Select::make('Sex')
-                            ->label('Sex')
+                            ->label('Gender')
                             ->required()
                             ->options([
                                 'Male'=>'Male',
@@ -111,10 +111,18 @@ class ApplicationsResource extends Resource
                             ->label('Previous School Name')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('SCurricullum')
+                        Forms\Components\Select::make('SCurricullum')
                             ->label('Curriculum')
                             ->required()
-                            ->maxLength(255),
+                            ->options([
+                                'American'=>'American',
+                                'British'=>'British',
+                                'IB'=>'International Baccalaureate (IB)',
+                                'French'=>'French',
+                                'Indian'=>'Indian',
+                                'Pakistani'=>'Pakistani',
+                                'Arabic'=>'Arabic ( Government)',
+                            ]),
                         Forms\Components\TextInput::make('Duration')
                             ->label('Duration')
                             ->required()
@@ -163,6 +171,10 @@ class ApplicationsResource extends Resource
                             ->label('Civil ID')
                             ->required()
                             ->maxLength(255),
+                        Forms\Components\TextInput::make('FDegree')
+                            ->label('Degree')
+                            ->required()
+                            ->maxLength(255),
                         Forms\Components\TextInput::make('FMobile')
                             ->label('Mobile')
                             ->required()
@@ -197,6 +209,10 @@ class ApplicationsResource extends Resource
                             ->maxLength(255),
                         Forms\Components\TextInput::make('MCivilId')
                             ->label('Civil ID')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('MDegree')
+                            ->label('Degree')
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('MMobile')
@@ -254,9 +270,6 @@ class ApplicationsResource extends Resource
                         Forms\Components\DateTimePicker::make('created_at')
                             ->label('Filled at')
                             ->disabled(),
-                        Forms\Components\TextInput::make('HowDidYouKnow')
-                            ->label('How to get to know us')
-                            ->maxLength(255),
                         Forms\Components\Select::make('PCEnglish')
                             ->label('Parents Command of English')
                             ->options([
@@ -277,6 +290,9 @@ class ApplicationsResource extends Resource
                                 'Father' => 'Father',
                                 'Mother' => 'Mother',
                             ]),
+                        Forms\Components\TextInput::make('HowDidYouKnow')
+                            ->label('How to get to know us')
+                            ->maxLength(255),
                     ]),
             ]);
     }
@@ -299,7 +315,7 @@ class ApplicationsResource extends Resource
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('Sex')
-                    ->label('Sex')
+                    ->label('Gender')
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('SCivilId')
@@ -402,7 +418,7 @@ class ApplicationsResource extends Resource
                         DateConstraint::make('dob')
                             ->label('Birthdate'),
                         QueryBuilder\Constraints\SelectConstraint::make('Sex')
-                            ->label('Sex')
+                            ->label('Gender')
                             ->options([
                                 'Male'=>'Male',
                                 'Female'=>'Female',
@@ -411,8 +427,17 @@ class ApplicationsResource extends Resource
                             ->label('Civil ID'),
                         TextConstraint::make('SPreviousSchool')
                             ->label('Previous School Name'),
-                        TextConstraint::make('SCurricullum')
-                            ->label('Curriculum'),
+                        QueryBuilder\Constraints\SelectConstraint::make('SCurricullum')
+                            ->label('Curriculum')
+                            ->options([
+                                'American'=>'American',
+                                'British'=>'British',
+                                'IB'=>'International Baccalaureate (IB)',
+                                'French'=>'French',
+                                'Indian'=>'Indian',
+                                'Pakistani'=>'Pakistani',
+                                'Arabic'=>'Arabic ( Government)',
+                            ]),
                         TextConstraint::make('SHAddress')
                             ->label('Home Address'),
                         TextConstraint::make('FName')
