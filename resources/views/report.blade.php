@@ -36,12 +36,7 @@
             <strong>
                 Date Of Birth:
             </strong><br>
-            @php
-                $dob = Carbon\Carbon::createFromFormat('Y-m-d', $application->dob->format('Y-m-d'));
-                $dateOn =  Carbon\Carbon::createFromFormat('Y-m-d', '2024-09-15');
-                $age =  $dob->diff($dateOn); 
-            @endphp
-            {{ $application->dob->format('Y-m-d') }}  <strong><br> Age:</strong> {{ "{$age->y} years, {$age->m} months, and {$age->d} days" }}
+            {{ $application->dob->format('Y-m-d') }}  <strong><br> Age:</strong> {{ "{$application->age->y} years, {$application->age->m} months, and {$application->age->d} days" }}
         </td>
         <td style="width: 25%;">
             <strong>

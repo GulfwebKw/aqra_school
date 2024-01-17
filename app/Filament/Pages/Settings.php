@@ -2,7 +2,10 @@
 
 namespace App\Filament\Pages;
 
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -31,6 +34,9 @@ class Settings extends Page implements HasForms
     public $email_to ;
     public $MYFATOORAH_API_KEY ;
     public $MYFATOORAH_IS_LIVE ;
+    public $ageFrom ;
+    public $temp ;
+    public $ageFromDate ;
 
     public $rules = [
         'site_title' => ['required' , 'string'],
@@ -41,6 +47,9 @@ class Settings extends Page implements HasForms
         'logo_dark' => ['nullable' , 'image'],
         'pdf_background' => ['nullable' , 'image'],
         'MYFATOORAH_IS_LIVE' => ['nullable'],
+        'ageFrom' => ['nullable'],
+        'temp' => ['nullable'],
+        'ageFromDate' => ['nullable'],
     ];
     protected $validationAttributes = [
         'site_title' => 'Site Title',
@@ -87,6 +96,13 @@ class Settings extends Page implements HasForms
                         ->label('PDF Background')
                         ->type('file')
                         ->rule(['nullable' , 'image']),
+                    Select::make('ageFrom')
+                        ->label('Calculate age from')
+                        ->required()
+                        ->options(['now' => 'Time of Filling form' , 'custom' => 'Special Date']),
+                    config::get('ageFrom', 'now') === "custom" ? DatePicker::make('ageFromDate')
+                        ->label('Calculate age from this date')
+                        ->required() : Hidden::make('temp'),
                 ])
                 ->columns(3),
             Section::make()
