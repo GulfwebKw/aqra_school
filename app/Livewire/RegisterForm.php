@@ -113,6 +113,7 @@ class RegisterForm extends Component
         /** @var Grade $grade */
         $grade = Grade::query()->where('is_active' , 1)->findOrFail($this->form['Grade']);
         $this->form['dob'] = Carbon::createFromDate($this->form['dob-year'],$this->form['dob-month'],$this->form['dob-day']);
+        $this->form['ageDate'] = Settings::get('ageFrom', 'now') === "now" ? now()->startOfDay() : Carbon::createFromFormat('Y-m-d', Settings::get('ageFromDate'))->startOfDay();
         $this->form['Grade_id'] = $this->form['Grade'];
         $application = new Application();
         $application->fill($this->form);

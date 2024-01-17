@@ -95,6 +95,7 @@ class ApplicationsResource extends Resource
                             ->required(),
                         Forms\Components\TextInput::make('age')
                             ->label('Age')
+                            ->formatStateUsing(fn (\DateInterval $state): string =>"{$state->y} years, {$state->m} months, and {$state->d} days")
                             ->disabled(),
                         Forms\Components\Select::make('Sex')
                             ->label('Gender')

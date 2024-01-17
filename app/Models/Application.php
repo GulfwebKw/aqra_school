@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateInterval;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,12 +13,13 @@ use Illuminate\Support\Carbon;
  * @property string $SFName
  * @property string $SNationlity
  * @property Carbon $dob
+ * @property Carbon $ageDate
  * @property string $Sex
  * @property string $SCivilId
  * @property string $SPreviousSchool
  * @property string $SCurricullum
  * @property int $Grade_id
- * @property ?int $age
+ * @property ?DateInterval $age
  * @property Grade $grade
  * @property string $SHAddress
  * @property int $Duration
@@ -64,6 +66,7 @@ class Application extends Model
         'SFName',
         'SNationlity',
         'dob',
+        'ageDate',
         'Sex',
         'SCivilId',
         'SPreviousSchool',
@@ -108,6 +111,7 @@ class Application extends Model
         'Grade_id' => 'int' ,
         'price' => 'float' ,
         'dob' => 'date',
+        'ageDate' => 'date',
         'paid' => 'boolean',
         'paid_at' => 'datetime',
     ];
@@ -121,10 +125,10 @@ class Application extends Model
         return $this->belongsTo(Grade::class , 'Grade_id')->withTrashed();
     }
 
-    public function getAgeAttribute():?int
+    public function getAgeAttribute(): ?DateInterval
     {
         if( $this->dob )
-            return now()->diffInYears($this->dob);
+            return $this->ageDate ? $this->ageDate->diff($this->dob) : now()->diff($this->dob);
         return null;
     }
 }
