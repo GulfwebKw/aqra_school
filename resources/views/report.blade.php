@@ -4,6 +4,7 @@
         padding: 5px;
         border: 1px solid #344050;
         border-collapse: collapse;
+        font-size: .75rem;
     }
 </style>
 <table style="width: 100%;border-collapse: collapse;">
@@ -35,7 +36,12 @@
             <strong>
                 Date Of Birth:
             </strong><br>
-            {{ $application->dob->format('Y-m-d') }}  <strong>| Age:</strong> {{ $application->age }}
+            @php
+                $dob = Carbon\Carbon::createFromFormat('Y-m-d', $application->dob->format('Y-m-d'));
+                $dateOn =  Carbon\Carbon::createFromFormat('Y-m-d', '2024-09-15');
+                $age =  $dob->diff($dateOn); 
+            @endphp
+            {{ $application->dob->format('Y-m-d') }}  <strong><br> Age:</strong> {{ "{$age->y} years, {$age->m} months, and {$age->d} days" }}
         </td>
         <td style="width: 25%;">
             <strong>
@@ -53,7 +59,7 @@
         </td>
         <td>
             <strong>
-                Previous School Name:
+                School Name:
             </strong><br>
             {{ $application->SPreviousSchool }}
         </td>

@@ -222,9 +222,9 @@
                 </select>
             </div>
             @if($age)
-            <div class="mt-2">
-                {{ $age }} years old.
-            </div>
+            <!--<div class="mt-2">-->
+            <!--    {{ $age }} years old.-->
+            <!--</div>-->
             @endif
         </div>
 
