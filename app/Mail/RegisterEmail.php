@@ -60,7 +60,8 @@ class RegisterEmail extends Mailable
     {
         return [
             Attachment::fromData(fn () => $this->pdf->output(), 'application_form_'.$this->application->id.'.pdf')
-                ->withMime('application/pdf')
+                ->withMime('application/pdf'),
+            Attachment::fromPath(public_path('Admission_Document.jpg')),
         ];
     }
 }

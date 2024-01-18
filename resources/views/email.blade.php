@@ -23,5 +23,8 @@
     </tr>
 </table>
 <div style="width: 100%;margin: 10px auto;">
+    <img src="{{ asset('Admission_Document.jpg') }}" style="width: 100%;" alt="Admission Document">
+</div>
+<div style="width: 100%;margin: 10px auto;">
 @include('report' , ['application' => $application])
 </div>
