@@ -39,6 +39,28 @@ class GradeResource extends Resource
                     ->required()
                     ->rules(['numeric'])
                     ->maxLength(255),
+                Forms\Components\TextInput::make('from_year')
+                    ->required()
+                    ->minValue(0)
+                    ->rules(['numeric'])
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('from_month')
+                    ->required()
+                    ->minValue(0)
+                    ->maxValue(11)
+                    ->rules(['numeric'])
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('until_year')
+                    ->required()
+                    ->minValue(0)
+                    ->rules(['numeric'])
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('until_month')
+                    ->required()
+                    ->minValue(0)
+                    ->maxValue(11)
+                    ->rules(['numeric'])
+                    ->maxLength(255),
                 Forms\Components\Toggle::make('is_active')
                     ->nullable(),
             ]);

@@ -103,8 +103,43 @@ class RegisterForm extends Component
 
     public function updated($name, $value)
     {
-        if ( isset($this->form['dob-year'] , $this->form['dob-month'] , $this->form['dob-day']) and $this->form['dob-year'] and $this->form['dob-month'] and $this->form['dob-day'])
-            $this->age = now()->diffInYears(Carbon::createFromDate($this->form['dob-year'],$this->form['dob-month'],$this->form['dob-day']));
+        if ( in_array($name , ['form.dob-year' , 'form.dob-month' ,'form.dob-day' ])) {
+            if (isset($this->form['dob-year'], $this->form['dob-month'], $this->form['dob-day']) and $this->form['dob-year'] and $this->form['dob-month'] and $this->form['dob-day']) {
+                $ageCalculator = Settings::get('ageFrom', 'now') === "now" ? now()->startOfDay() : Carbon::createFromFormat('Y-m-d', Settings::get('ageFromDate'))->startOfDay();
+                $birthDay = Carbon::createFromDate($this->form['dob-year'], $this->form['dob-month'], $this->form['dob-day']);
+                $this->age = $ageCalculator->diffInYears($birthDay);
+                $year = $ageCalculator->diffInYears($birthDay);
+                $month = $ageCalculator->diffInMonths($birthDay) - ($ageCalculator->diffInYears($birthDay) * 12);
+                $this->grades = Grade::query()
+                    ->where(function ($query) use ($year, $month) {
+                        $query->where(function ($query) use ($year, $month) {
+                            $query->where('from_year', $year)
+                                ->where('until_year', $year)
+                                ->where('from_month', '<=', $month)
+                                ->where('until_month', '>', $month);
+                        })
+                            ->orwhere(function ($query) use ($year, $month) {
+                                $query->where('from_year', $year)
+                                    ->where('until_year', '>', $year)
+                                    ->where('from_month', '<=', $month);
+                            })
+                            ->orwhere(function ($query) use ($year, $month) {
+                                $query->where('from_year', '<=', $year)
+                                    ->where('until_year', '>', $year);
+                            })
+                            ->orwhere(function ($query) use ($year, $month) {
+                                $query->where('until_year', $year)
+                                    ->where('from_year', '<', $year)
+                                    ->where('until_month', '>', $month);
+                            });
+                    })
+                    ->where('is_active', 1)
+                    ->orderBy('ordering')->get();
+            } else {
+                $this->grades = [];
+                $this->form['Grade'] = null;
+            }
+        }
     }
 
     public function save()
@@ -157,9 +192,7 @@ class RegisterForm extends Component
 
     public function mount()
     {
-        $this->grades = Grade::query()
-            ->where('is_active' , 1)
-            ->orderBy('ordering')->get();
+        $this->grades = [];
         $this->form['Sex'] = '';
         $this->form['Grade'] = '';
         $this->form['SCurricullum'] = '';

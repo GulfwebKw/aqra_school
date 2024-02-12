@@ -20,21 +20,6 @@
     <div class="row">
 
         <div class="col-md-3 form-group marbot20">
-            <label for="txtGrade">Grade Applied For / الصف المتقدم له</label>
-            <select wire:model.lazy="form.Grade" class="form-control @error('form.Grade') is-invalid @enderror">
-                <option value="">Please choose</option>
-                @foreach($grades as $grade)
-                    <option value="{{ $grade->id }}">{{ $grade->title }}</option>
-                @endforeach
-            </select>
-            @error('form.Grade')
-            <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-
-        <div class="col-md-3 form-group marbot20">
             <label for="txtSNationlity">Nationality / الجنسية</label>
             <input wire:model.lazy="form.SNationlity" type="text" maxlength="20" class="form-control @error('form.SNationlity') is-invalid @enderror"
                    onkeypress="return isNumericKey(event)"/>
@@ -227,6 +212,21 @@
             <!--    {{ $age }} years old.-->
             <!--</div>-->
             @endif
+        </div>
+
+        <div class="col-md-3 form-group marbot20">
+            <label for="txtGrade">Grade Applied For / الصف المتقدم له</label>
+            <select wire:model.lazy="form.Grade" class="form-control @error('form.Grade') is-invalid @enderror">
+                <option value="">Please choose</option>
+                @foreach($grades as $grade)
+                    <option value="{{ $grade->id }}">{{ $grade->title }}</option>
+                @endforeach
+            </select>
+            @error('form.Grade')
+            <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
 
         <div class="col-md-3 form-group marbot20">

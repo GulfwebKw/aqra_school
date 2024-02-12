@@ -13,6 +13,10 @@ use Illuminate\Support\Collection;
  * @property string $title
  * @property float $price
  * @property int $ordering
+ * @property int $from_year
+ * @property int $from_month
+ * @property int $until_year
+ * @property int $until_month
  * @property bool $is_active
  * @property Collection<Application> $applications
  * @property Carbon $created_at
@@ -26,12 +30,20 @@ class Grade extends Model
         'title' ,
         'price' ,
         'ordering',
+        'from_year',
+        'from_month',
+        'until_year',
+        'until_month',
         'is_active'
     ];
 
     protected $casts = [
         'price' => 'float' ,
         'ordering' => 'int' ,
+        'from_year' => 'int' ,
+        'from_month' => 'int' ,
+        'until_year' => 'int' ,
+        'until_month' => 'int' ,
         'is_active' => 'boolean'
     ];
 
